@@ -36,8 +36,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Authors and Acknowledgment
 ```bash
-console.log('Jeffrey Helder | Just Some Guy');
-console.log('http://www.jeffreyhelder.com/');
+**Jeffrey Helder | Just Some Guy**
+(http://www.jeffreyhelder.com/)
 ```
 
 ## Contributing
@@ -49,7 +49,7 @@ I do not own or claim to own any rights to any of the movie, tv show, or music i
 ## License
 CODE License
 
-Copyright (c) [2020] [Jeffrey Helder]
+Copyright (c) 2020 Jeffrey Helder
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this code without restriction subject to the following conditions: 
 
