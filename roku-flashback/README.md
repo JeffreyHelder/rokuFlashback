@@ -36,8 +36,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Authors and Acknowledgment
 
-**Jeffrey Helder | Just Some Guy**
-[website](http://www.jeffreyhelder.com/)
+[**Jeffrey Helder | Just Some Guy**](http://www.jeffreyhelder.com/)
 
 
 ## Contributing
