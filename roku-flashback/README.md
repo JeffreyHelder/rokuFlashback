@@ -35,10 +35,10 @@ Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Authors and Acknowledgment
-```bash
+
 **Jeffrey Helder | Just Some Guy**
-(http://www.jeffreyhelder.com/)
-```
+[website](http://www.jeffreyhelder.com/)
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
