@@ -1,0 +1,321 @@
+<template>
+<div class="container fixed-top" id="header">
+  <b-navbar style="max-width:1800px !important; margin:auto;" toggleable="lg">
+    <b-navbar-brand href="#">
+      <show-at breakpoint="mediumAndAbove">
+        <img src="@/assets/img/logo/logo_full.svg" alt="Flasback Logo">
+      </show-at>
+      <hide-at breakpoint="mediumAndAbove">
+        <img src="@/assets/img/logo/logo_icon.svg" alt="Flasback Logo">
+      </hide-at>
+    </b-navbar-brand>
+
+      <b-navbar-nav class="top-nav">
+        <!-- hide home for mobile -->
+        <show-at breakpoint="mediumAndAbove">
+        <b-nav-item>
+          <router-link to="/">Home</router-link>
+        </b-nav-item>
+        </show-at>
+        <b-nav-item>
+          <router-link to="/music">Music</router-link>
+        </b-nav-item>
+        <b-nav-item>
+          <router-link to="/series">Series</router-link>
+        </b-nav-item>
+        <b-nav-item>
+          <router-link to="/movies">Movies</router-link>
+        </b-nav-item>
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <show-at breakpoint="mediumAndAbove">
+        
+        <b-navbar-nav class="ml-auto">
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">
+              <i class="fas fa-search"></i>
+            </b-button>
+          </b-nav-form>
+
+          <b-nav-item id="up-pro" ref="up-pro">
+            <div @click="showit('showPro')" v-bind:class="{ active: showPro }" class="navicon">
+                <i class="fas fa-user"></i>
+            </div>
+            <transition name="slide-fade">
+              <span v-if="showPro" id="upMenu" class="down-menu">
+                <ul>
+                  <li><i class="fas fa-user-cog"></i><a href="#">User Preferences</a></li>
+                  <li><i class="fas fa-user-cog"></i><a href="#">Activity</a></li>
+                  <li><i class="fas fa-users"></i><a href="#">Switch Users</a></li>
+                </ul>
+              </span>
+            </transition>
+          </b-nav-item>
+
+          <b-nav-item id="up-set" ref="up-set">
+            <div @click="showit('showSet')" v-bind:class="{ active: showSet }" class="navicon">
+              <i class="fas fa-sliders-h"></i>
+            </div>
+            <transition name="slide-fade">
+              <span v-if="showSet" id="upMenu" class="down-menu">
+                <ul>
+                  <li>
+                    <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settingst</router-link>
+                    </li>
+                  <li>
+                    <router-link to="/about"><i class="fas fa-users"></i>Sign Out</router-link>
+                  </li>
+                </ul>
+              </span>
+            </transition>
+          </b-nav-item>
+
+        </b-navbar-nav>
+      </show-at>
+  </b-navbar>
+
+  <!-- BOTTOM MOBILE NAV --->
+  <hide-at breakpoint="mediumAndAbove">
+    <div class="nav-bottom">
+      <b-navbar-nav d-flex flex-row m-auto>
+        
+        <b-nav-item>
+          <router-link to="/">
+            <i class="fas fa-home"></i>
+          </router-link>
+        </b-nav-item>
+
+        <b-nav-item id="up-ser" ref="up-ser">
+          <div @click="showit('showSer')" v-bind:class="{ active: showSer }">
+              <i class="fas fa-search"></i>
+          </div>
+          <transition name="slide-fade">
+            <span v-if="showSer" id="upMenu" class="up-search">
+            <b-nav-form>
+              <b-form-input size="sm" class="mr-sm-1 col-8" placeholder="Search"></b-form-input>
+              <b-button size="sm" class="col-2 ml-2" type="submit">
+                <i class="fas fa-search"></i>
+              </b-button>
+            </b-nav-form>
+            </span>
+          </transition>
+        </b-nav-item>
+
+        <b-nav-item id="up-pro" ref="up-pro">
+          <div @click="showit('showPro')" v-bind:class="{ active: showPro }">
+              <i class="fas fa-user"></i>
+          </div>
+          <transition name="slide-fade">
+            <span v-if="showPro" id="upMenu" class="up-menu">
+              <ul>
+                <li><i class="fas fa-user-cog"></i><a href="#">User Preferences</a></li>
+                <li><i class="fas fa-user-cog"></i><a href="#">Activity</a></li>
+                <li><i class="fas fa-users"></i><a href="#">Switch Users</a></li>
+              </ul>
+            </span>
+          </transition>
+        </b-nav-item>
+
+        <b-nav-item id="up-set" ref="up-set">
+          <div @click="showit('showSet')" v-bind:class="{ active: showSet }">
+              <i class="fas fa-sliders-h"></i>
+          </div>
+          <transition name="slide-fade">
+            <span v-if="showSet" id="upMenu" class="up-menu">
+              <ul>
+                <li><i class="fas fa-user-cog"></i><a href="#">Account Settings</a></li>
+                <li><i class="fas fa-users"></i><a href="#">Log Out</a></li>
+              </ul>
+            </span>
+          </transition>
+        </b-nav-item>
+
+      </b-navbar-nav>
+    </div>
+  </hide-at>
+
+</div>
+</template>
+
+<script>
+import {showAt, hideAt} from 'vue-breakpoints';
+
+export default {
+  name: "Header",
+  components: { hideAt, showAt },
+  data: function () {
+    return {
+      showPro: false,
+      showSet: false,
+      showSer: false
+    }
+  },
+  methods: {
+    showit: function (thisMenu) {
+      let newMenu = thisMenu
+      if (newMenu === "showPro"){
+        if (this.$data.showPro === true){
+          this.$data.showPro = false;
+        }else{
+          this.$data.showSet = false;
+          this.$data.showSer = false;
+          this.$data.showPro = true;
+      } }
+      if (newMenu === "showSer"){
+        if (this.$data.showSer === true){
+          this.$data.showSer = false;
+        }else{
+          this.$data.showSet = false;
+          this.$data.showPro = false;
+          this.$data.showSer = true;
+      } }
+      if (newMenu === "showSet"){
+        if (this.$data.showSet === true){
+          this.$data.showSet = false;
+        }else{
+          this.$data.showSer = false;
+          this.$data.showPro = false;
+          this.$data.showSet = true;
+      } }   
+    }
+
+  }
+}
+
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+
+#header{
+  align-items: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+  background-color: black;
+  margin: 0 !important;
+  max-width: none !important;
+}
+img{
+  height: 40px;
+}
+ul{
+  display: flex !important;
+  flex-direction: row !important;
+}
+.top-nav li{
+  padding: 0 10px !important;
+}
+.navicon {
+  padding: 0 10px;
+}
+.nav-bottom{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  position: fixed !important;
+  bottom: 0 !important;
+  z-index: 999;
+  justify-content: center;
+}
+.nav-bottom ul{
+  width: 100% !important;
+  align-items: center;
+  justify-content: space-evenly;
+}
+a *{
+  color: white;
+}
+a.router-link-exact-active, .router-link-exact-active * {
+  color: rgb(0, 153, 255) !important;
+  transform: scale(1.2);
+  translate: .5s;
+}
+.active *{
+  color: rgb(0, 153, 255) !important;
+  transform: scale(1.25);
+  translate: .5s;
+}
+.up-search{
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  height: 30Vh;
+  left: 0;
+  width: 100vW !important;
+  margin: auto !important;
+  padding: 10px;
+  color: aqua;
+  background-color: black;
+}
+.up-menu{
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  left: 35%;
+  width: 65vW !important;
+  margin: auto !important;
+  height: auto !important;
+  color: aqua;
+  background-color: black;
+  border-top-left-radius: 8px;
+  ul{
+    flex-direction: column !important;
+    list-style: none;
+    padding: 15px 0 !important;
+    align-items: start;
+    li{
+      padding: 15px;
+      font-size: 18px;
+      a{
+        padding-left: 10px;
+      }
+    }
+  }
+}
+.down-menu{
+  display: block;
+  position: absolute;
+  top: 66px;
+  left: calc(100% - 300px);
+  width: 300px !important;
+  margin: auto !important;
+  height: auto !important;
+  color: aqua;
+  background-color: black;
+  border-bottom-left-radius: 8px;
+  ul{
+    flex-direction: column !important;
+    list-style: none;
+    padding: 15px 0 !important;
+    align-items: start;
+    li{
+      padding: 15px;
+      font-size: 14px;
+      a{
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .4s ease;
+}
+.slide-fade-leave-active {
+  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  background-color: white;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+</style>
+
