@@ -52,6 +52,7 @@
                 </ul>
               </span>
             </transition>
+            <div v-if="showPro" @click="closeDrop('hidePro')" class="closefix" id="closeFix" style="top: 66px !important"></div>
           </b-nav-item>
 
           <b-nav-item id="up-set" ref="up-set">
@@ -63,13 +64,14 @@
                 <ul>
                   <li>
                     <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settingst</router-link>
-                    </li>
+                  </li>
                   <li>
                     <router-link to="/about"><i class="fas fa-users"></i>Sign Out</router-link>
                   </li>
                 </ul>
               </span>
             </transition>
+            <div v-if="showSet" @click="closeDrop('hideSet')" class="closefix" id="closeFix" style="top: 66px !important"></div>
           </b-nav-item>
 
         </b-navbar-nav>
@@ -101,6 +103,7 @@
             </b-nav-form>
             </span>
           </transition>
+          <div v-if="showSer" @click="closeDrop('hideSer')" class="closefix" id="closeFix"></div>
         </b-nav-item>
 
         <b-nav-item id="up-pro" ref="up-pro">
@@ -116,6 +119,7 @@
               </ul>
             </span>
           </transition>
+          <div v-if="showPro" @click="closeDrop('hidePro')" class="closefix" id="closeFix"></div>
         </b-nav-item>
 
         <b-nav-item id="up-set" ref="up-set">
@@ -130,6 +134,7 @@
               </ul>
             </span>
           </transition>
+          <div v-if="showSet" @click="closeDrop('hideSet')" class="closefix" id="closeFix"></div>
         </b-nav-item>
 
       </b-navbar-nav>
@@ -162,7 +167,8 @@ export default {
           this.$data.showSet = false;
           this.$data.showSer = false;
           this.$data.showPro = true;
-      } }
+        } 
+      }
       if (newMenu === "showSer"){
         if (this.$data.showSer === true){
           this.$data.showSer = false;
@@ -170,7 +176,8 @@ export default {
           this.$data.showSet = false;
           this.$data.showPro = false;
           this.$data.showSer = true;
-      } }
+        } 
+      }
       if (newMenu === "showSet"){
         if (this.$data.showSet === true){
           this.$data.showSet = false;
@@ -178,9 +185,21 @@ export default {
           this.$data.showSer = false;
           this.$data.showPro = false;
           this.$data.showSet = true;
-      } }   
+        } 
+      }   
+    },
+    closeDrop: function (thisClose){
+      let closeThis = thisClose;
+      if (closeThis === "hideSer"){
+        this.$data.showSer = false;
+      }
+      if (closeThis === "hidePro"){
+        this.$data.showPro = false;
+      }
+      if (closeThis === "hideSet"){
+        this.$data.showSet = false;
+      }
     }
-
   }
 }
 
@@ -262,6 +281,7 @@ a.router-link-exact-active, .router-link-exact-active * {
   color: aqua;
   background-color: black;
   border-top-left-radius: 8px;
+  z-index: 999;
   ul{
     flex-direction: column !important;
     list-style: none;
@@ -287,6 +307,7 @@ a.router-link-exact-active, .router-link-exact-active * {
   color: aqua;
   background-color: black;
   border-bottom-left-radius: 8px;
+  z-index: 999;
   ul{
     flex-direction: column !important;
     list-style: none;
@@ -301,18 +322,24 @@ a.router-link-exact-active, .router-link-exact-active * {
     }
   }
 }
+.closefix{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vW !important;
+  height: calc(100vH - 50px) !important;
+  z-index: 950;
+  background-color: rgba($color: #ff70d4, $alpha: .4);
+}
 
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
 .slide-fade-enter-active {
   transition: all .4s ease;
 }
 .slide-fade-leave-active {
   transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  background-color: white;
+  background-color: grey;
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
+.slide-fade-enter, .slide-fade-leave-to {
   transform: translateY(10px);
   opacity: 0;
 }
