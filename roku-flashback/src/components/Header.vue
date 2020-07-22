@@ -46,9 +46,15 @@
             <transition name="slide-fade">
               <span v-if="showPro" id="upMenu" class="down-menu">
                 <ul>
-                  <li><i class="fas fa-user-cog"></i><a href="#">User Preferences</a></li>
-                  <li><i class="fas fa-user-cog"></i><a href="#">Activity</a></li>
-                  <li><i class="fas fa-users"></i><a href="#">Switch Users</a></li>
+                  <li>
+                    <router-link to="/about"><i class="fas fa-user-cog"></i>User Preferences</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/about"><i class="fas fa-user-cog"></i>Activity</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/about"><i class="fas fa-users"></i>Switch Users</router-link>
+                  </li>
                 </ul>
               </span>
             </transition>
@@ -63,7 +69,7 @@
               <span v-if="showSet" id="upMenu" class="down-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settingst</router-link>
+                    <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settings</router-link>
                   </li>
                   <li>
                     <router-link to="/about"><i class="fas fa-users"></i>Sign Out</router-link>
@@ -113,9 +119,15 @@
           <transition name="slide-fade">
             <span v-if="showPro" id="upMenu" class="up-menu">
               <ul>
-                <li><i class="fas fa-user-cog"></i><a href="#">User Preferences</a></li>
-                <li><i class="fas fa-user-cog"></i><a href="#">Activity</a></li>
-                <li><i class="fas fa-users"></i><a href="#">Switch Users</a></li>
+                <li>
+                  <router-link to="/about"><i class="fas fa-user-cog"></i>User Preferences</router-link>
+                </li>
+                <li>
+                  <router-link to="/about"><i class="fas fa-user-cog"></i>Activity</router-link>
+                </li>
+                <li>
+                  <router-link to="/about"><i class="fas fa-users"></i>Switch Users</router-link>
+                </li>
               </ul>
             </span>
           </transition>
@@ -129,8 +141,12 @@
           <transition name="slide-fade">
             <span v-if="showSet" id="upMenu" class="up-menu">
               <ul>
-                <li><i class="fas fa-user-cog"></i><a href="#">Account Settings</a></li>
-                <li><i class="fas fa-users"></i><a href="#">Log Out</a></li>
+                <li>
+                  <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settings</router-link>
+                </li>
+                <li>
+                  <router-link to="/about"><i class="fas fa-users"></i>Log Out</router-link>
+                </li>
               </ul>
             </span>
           </transition>
@@ -230,14 +246,14 @@ ul{
   padding: 0 10px;
 }
 .nav-bottom{
-  display: flex;
+  display: block;
   flex-direction: row;
   width: 100%;
   height: 50px;
   background-color: black;
   position: fixed !important;
   bottom: 0 !important;
-  z-index: 999;
+  z-index: 997;
   justify-content: center;
 }
 .nav-bottom ul{
@@ -269,6 +285,7 @@ a.router-link-exact-active, .router-link-exact-active * {
   padding: 10px;
   color: aqua;
   background-color: black;
+  z-index: 995;
 }
 .up-menu{
   display: block;
@@ -281,7 +298,7 @@ a.router-link-exact-active, .router-link-exact-active * {
   color: aqua;
   background-color: black;
   border-top-left-radius: 8px;
-  z-index: 999;
+  z-index: 998;
   ul{
     flex-direction: column !important;
     list-style: none;
@@ -328,7 +345,7 @@ a.router-link-exact-active, .router-link-exact-active * {
   left: 0;
   width: 100vW !important;
   height: calc(100vH - 50px) !important;
-  z-index: 950;
+  z-index: 800;
   background-color: rgba($color: #ff70d4, $alpha: .4);
 }
 

@@ -1,7 +1,33 @@
 <template>
-  <div class="landing">
-    <div class="col-11 m-auto">
-      <h1>Temp Landing Component</h1>
+  <div class="landing" :style="{'backgroundImage':'url(https://as1.ftcdn.net/jpg/01/61/42/20/500_F_161422055_HKhz3lpcBZhH2ERvSUy8BNcDxtIoXvpe.jpg)'}">
+
+    <b-navbar style="max-width:1800px !important; margin:auto; z-index: 999;" toggleable="lg">
+      <b-button class="ml-auto mt-2 mr-2">Sign In</b-button>
+    </b-navbar>
+    
+    <div class="col-12 m-auto" style="z-index:999; margin-top:40px !important;">
+      <div class="col-6">
+        <div class="row col-12 mb-5">
+          <img style="height:55px;" src="@/assets/img/logo/Roku_logo.svg" alt="Roku Logo">
+          <img style="height:55px; margin-left:40px;" src="@/assets/img/logo/logo_full.svg" alt="Flashback Logo">
+        </div>
+        <div class="text-left mb-5">
+          <h2>All Your Favorite Past Shows, Movies, And Music!</h2>
+          <h3>Available 24/7 on Mobile, Tablet, and Desktop!</h3>
+        </div>
+        <div class="row col-12 justify-content-around">
+          <div class="col-5 text-left row justify-content-between" style="height:inherit;">
+            <h4>30 Day Free Trial</h4>
+            <p>Start Streaming risk free today! Cancel anytime; Auto renewal</p>
+            <b-button class="w-100" style="height:45px;">SIGN UP TODAY</b-button>
+          </div>
+          <div class="col-5 text-left row justify-content-between" style="height:inherit;">
+            <h4>$5.99<b>/month</b></h4>
+            <p>Monthly subscription. no ads, no down time. Monthly or Annually.</p>
+            <b-button class="w-100" style="height:45px;">SUBSCRIBE TODAY</b-button>
+          </div>
+        </div> 
+      </div>
     </div>
   </div>
 </template>
@@ -14,17 +40,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h1 {
-  text-align: center;
+* {
+  color: antiquewhite;
 }
-.landing{
+h2{font-size: 24px; font-weight: bold;}
+h3{font-size: 22px;}
+h4{
+  font-size: 26px; 
+  b{font-size: 18px;}
   width: 100%;
-  height: calc(100vH - 66px);
-  padding: 100px 0;
-  background-color: rgb(63, 63, 63);
-  @media screen and (max-width: 743px) {
-    height: calc(100vH - 116px);
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid antiquewhite;
   }
-  h1{color: beige;}
+
+
+.landing{
+  width: 100vW;
+  height: 100vH;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100vW;
+    height: 100vH;
+    background-image: linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,.4) );
+    z-index: 950;
+  }
 }
 </style>
