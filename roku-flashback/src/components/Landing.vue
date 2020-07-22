@@ -5,8 +5,8 @@
       <b-button class="ml-auto mt-2 mr-2">Sign In</b-button>
     </b-navbar>
     
-    <div class="col-12 m-auto" style="z-index:999; margin-top:40px !important;">
-      <div class="col-6">
+    <div class="col-12 m-auto" style="z-index:999; margin-top:40px !important; max-width: 1800px;">
+      <div class="col-12 col-md-8 col-lg-9 col-xl-7">
         <div class="row col-12 mb-5">
           <img style="height:55px;" src="@/assets/img/logo/Roku_logo.svg" alt="Roku Logo">
           <img style="height:55px; margin-left:40px;" src="@/assets/img/logo/logo_full.svg" alt="Flashback Logo">
@@ -16,13 +16,13 @@
           <h3>Available 24/7 on Mobile, Tablet, and Desktop!</h3>
         </div>
         <div class="row col-12 justify-content-around">
-          <div class="col-5 text-left row justify-content-between" style="height:inherit;">
+          <div class="col-8 col-md-5 text-left row justify-content-between mb-5" style="height:inherit; max-width:250px !important; min-width: 235px !important; height:250px;">
             <h4>30 Day Free Trial</h4>
             <p>Start Streaming risk free today! Cancel anytime; Auto renewal</p>
             <b-button class="w-100" style="height:45px;">SIGN UP TODAY</b-button>
           </div>
-          <div class="col-5 text-left row justify-content-between" style="height:inherit;">
-            <h4>$5.99<b>/month</b></h4>
+          <div class="col-8 col-md-5 text-left row justify-content-between mb-5" style="height:inherit; max-width:250px !important; min-width: 235px !important; height:250px;">
+            <h4>$5.99<i>/month</i></h4>
             <p>Monthly subscription. no ads, no down time. Monthly or Annually.</p>
             <b-button class="w-100" style="height:45px;">SUBSCRIBE TODAY</b-button>
           </div>
@@ -46,8 +46,8 @@ export default {
 h2{font-size: 24px; font-weight: bold;}
 h3{font-size: 22px;}
 h4{
-  font-size: 26px; 
-  b{font-size: 18px;}
+  font-size: 26px;
+  i{font-size: 24px; font-style: normal;}
   width: 100%;
   padding-bottom: 10px;
   border-bottom: 1.5px solid antiquewhite;
@@ -56,18 +56,19 @@ h4{
 
 .landing{
   width: 100vW;
-  height: 100vH;
-  overflow: hidden;
+  height: 100%;
+  min-height: 100vH;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+    overflow: hidden;
   &::after{
     content: "";
     display: block;
     position: absolute;
     top: 0;
     width: 100vW;
-    height: 100vH;
+    height: 100%;
     background-image: linear-gradient(to right, rgba(0,0,0,.7), rgba(0,0,0,.4) );
     z-index: 950;
   }
