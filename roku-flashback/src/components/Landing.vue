@@ -2,7 +2,7 @@
   <div class="landing" :style="{'backgroundImage':'url(https://as1.ftcdn.net/jpg/01/61/42/20/500_F_161422055_HKhz3lpcBZhH2ERvSUy8BNcDxtIoXvpe.jpg)'}">
 
     <b-navbar style="max-width:1800px !important; margin:auto; z-index: 999;" toggleable="lg">
-      <b-button class="ml-auto mt-2 mr-2">Sign In</b-button>
+      <b-button class="ml-auto mt-2 mr-2"><router-link to="/login">Sign In</router-link></b-button>
     </b-navbar>
     
     <div class="col-12 m-auto" style="z-index:999; margin-top:40px !important; max-width: 1800px;">
