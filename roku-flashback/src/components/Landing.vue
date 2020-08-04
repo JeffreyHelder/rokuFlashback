@@ -19,12 +19,12 @@
           <div class="col-8 col-md-5 text-left row justify-content-between mb-5" style="height:inherit; max-width:250px !important; min-width: 235px !important; height:250px;">
             <h4>30 Day Free Trial</h4>
             <p>Start Streaming risk free today! Cancel anytime; Auto renewal</p>
-            <b-button class="w-100" style="height:45px;">SIGN UP TODAY</b-button>
+            <router-link to="/register"><b-button class="w-100" style="height:45px;">SIGN UP TODAY</b-button></router-link>
           </div>
           <div class="col-8 col-md-5 text-left row justify-content-between mb-5" style="height:inherit; max-width:250px !important; min-width: 235px !important; height:250px;">
             <h4>$5.99<i>/month</i></h4>
             <p>Monthly subscription. no ads, no down time. Monthly or Annually.</p>
-            <b-button class="w-100" style="height:45px;">SUBSCRIBE TODAY</b-button>
+            <router-link to="/register"><b-button class="w-100" style="height:45px;">SUBSCRIBE TODAY</b-button></router-link>
           </div>
         </div> 
       </div>
@@ -41,7 +41,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 * {
-  color: antiquewhite;
+  color: white;
 }
 h2{font-size: 24px; font-weight: bold;}
 h3{font-size: 22px;}
