@@ -64,7 +64,7 @@
                 <b-form-input
                   id="pass"
                   class="mb-4"
-                  v-model="form.fname"
+                  v-model="form.pass"
                   type="password"
                   required
                   placeholder="Password"
@@ -72,7 +72,7 @@
 
                 <b-form-input
                   id="passcheck"
-                  v-model="form.lname"
+                  v-model="form.confpass"
                   type="password"
                   required
                   placeholder="Confirm Password"
@@ -112,8 +112,8 @@ export default {
         fname:'',
         lname:'',
         email:'',
-        emailcheck: '',
-        pass: ''
+        pass: '',
+        confpass:''
       },
       show: true
     }
