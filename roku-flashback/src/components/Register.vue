@@ -4,58 +4,77 @@
       <div class="title">
         <h3>Register</h3>
       </div>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+        <b-form @submit="onSubmit" v-if="show">
 
-          <b-collapse visible id="personal">
+          <b-collapse visible id="name-section">
             <b-form-group
-              id="input-group-1"
+              id="name-input"
               label="Lets start with some basic info :"
-              label-for="input-1"
               description=""
               class="text-left"
             >
               <b-form-input
-                id="input-1"
+                id="fname-input"
                 class="mb-3"
                 v-model="form.fname"
-                type="name"
+                name="fname"
                 required
                 placeholder="First Name"
               ></b-form-input>
 
               <b-form-input
-                id="input-1"
+                id="lname-input"
                 v-model="form.lname"
-                type="name"
+                name="lname"
                 required
                 placeholder="Last Name"
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              id="input-group-1"
-              description=""
-              class="text-left"
-            >
-              <b-form-input
-                id="input-1"
-                v-model="form.email"
-                type="email"
-                required
-                placeholder="Email Address"
-              ></b-form-input>
-            </b-form-group>
-
             <b-container class="d-flex p-0 justify-content-start">
-              <b-button v-b-toggle="['personal', 'info']" variant="primary">Next</b-button>
+              <b-button v-b-toggle="['name-section', 'email-section']" variant="primary">Next</b-button>
             <!--Make button call function {check if form sections are filled out before v-b-toggle} --->
             </b-container>
 
           </b-collapse>
 
-          <b-collapse id="info">
+          <b-collapse id="email-section">
               <b-form-group
-                id="input-group-1"
+                id="email-input"
+                label="Now your email :"
+                class="text-left"
+              >
+                <b-form-input
+                  id="email"
+                  class="mb-4"
+                  v-model="form.email"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Email.."
+                ></b-form-input>
+
+                <b-form-input
+                  id="confemail"
+                  v-model="form.confemail"
+                  type="email"
+                  name="confemail"
+                  required
+                  placeholder="Confirm Email.."
+                ></b-form-input>
+              </b-form-group>
+
+            <b-container class="d-flex p-0 justify-content-start">
+              <b-button v-b-toggle="['email-section', 'password-section']" variant="primary">Next</b-button>
+              <!--Make button call function {check if form sections are match out before v-b-toggle} --->
+              <b-button class="ml-3" v-b-toggle="['email-section', 'name-section']" variant="secondary">Back</b-button>
+            </b-container>
+
+          </b-collapse>
+
+          <b-collapse id="password-section">
+              <b-form-group
+                id="password-input"
                 label="Now create a password :"
                 label-for="pass"
                 description="It has to be 8+ charaters"
@@ -66,6 +85,7 @@
                   class="mb-4"
                   v-model="form.pass"
                   type="password"
+                  name="pass"
                   required
                   placeholder="Password"
                 ></b-form-input>
@@ -74,6 +94,7 @@
                   id="passcheck"
                   v-model="form.confpass"
                   type="password"
+                  name="confpass"
                   required
                   placeholder="Confirm Password"
                 ></b-form-input>
@@ -82,8 +103,8 @@
             <b-container class="d-flex p-0 justify-content-start">
               <b-button type="submit" variant="primary">Next</b-button>
               <!-- when submit and checking => v-b-toggle spinner --->
-              <b-button class="ml-3" v-b-toggle="['personal', 'info']" variant="secondary">Back</b-button>
-              <b-button class="ml-3" v-b-toggle="['reg', 'spinner']" variant="danger">TempButton</b-button>
+              <b-button class="ml-3" v-b-toggle="['password-section', 'email-section']" variant="secondary">Back</b-button>
+              <b-button class="ml-3" v-b-toggle="['reg', 'confirm-section']" variant="danger">TempButton</b-button>
             </b-container>
 
           </b-collapse>
@@ -94,10 +115,52 @@
       </div>
     </b-collapse>
 
-    <b-collapse id="spinner">
-      <div class="spinner">
-        <i class="fas fa-spinner"></i>
-      </div>
+    <b-collapse id="confirm-section">
+
+      <b-collapse visible id="spinner" class="spinner">
+        <p>
+          Working..
+        </p>
+        <i style="color:cyan;" class="fas fa-spinner"></i>
+        <p>
+          <em v-b-toggle="['spinner', 'check']" >one moment please</em>
+          <!-- <em>one moment please</em> -->
+        </p>
+      </b-collapse>
+
+      <b-collapse id="check" class="check">
+        <p>
+          All is good!
+        </p>
+        <i style="color:greenyellow;" class="far fa-check-circle"></i>
+        <p>
+          <em v-b-toggle="['check', 'error']">Log In Here</em>
+          <!-- <em><router-link to="/login">Log In Here</router-link></em> -->
+        </p>
+      </b-collapse>
+
+      <b-collapse id="error" class="error">
+        <p>
+          Oops! Something went wrong!
+        </p>
+        <i style="color:red;" class="far fa-times-circle"></i>
+        <p>
+          <em v-b-toggle="['error', 'usererror']">Try Again?</em>
+          <!-- <em><a @click="reload" href="">Try Again?</a></em> -->
+        </p>
+      </b-collapse>
+
+      <b-collapse id="usererror" class="error">
+        <p>
+          Looks like that email is already in use!
+        </p>
+        <i style="color:red;" class="far fa-times-circle"></i>
+        <p>
+          <em v-b-toggle="['usererror', 'spinner']">Try Again / Log In</em>
+          <!-- <em><a @click="reload" href="">Try Again</a> / <router-link to="/login">Log In</router-link></em> -->
+        </p>
+      </b-collapse>
+
     </b-collapse>
 
   </div>
@@ -112,6 +175,7 @@ export default {
         fname:'',
         lname:'',
         email:'',
+        confemail:'',
         pass: '',
         confpass:''
       },
@@ -123,16 +187,9 @@ export default {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
       },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.pass = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+      reload(evt) {
+        evt.preventDefault(evt)
+        this.$router.go()
       }
     }
 };
@@ -146,7 +203,7 @@ export default {
 
 .collapsed > .when-open,
 .not-collapsed > .when-closed {
-  display: none;
+  visibility: hidden;
 }
 
 .wrapper{
@@ -196,28 +253,27 @@ export default {
     a{color: rgb(26, 142, 250); margin-left: 10px;}
   }
 }
-#spinner{
+#confirm-section{
   display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
 }
-.spinner{
+.check, .error, .spinner{
   display: flex;
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
-  svg{
-    color:cyan; 
-    width: 100%;
-    height: 100%;
-    animation: rotating 1.5s linear infinite;
-  }
+  justify-content: space-between;
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  svg{width: 100px; height: 100px;}
+  p{margin:0; font-size: 26px; font-weight: bold;}
+  p em{font-size: 14px; font-weight: normal;}
 }
+
+#spinner svg{animation: rotating 1.5s linear infinite;}
 
 @keyframes rotating {
   from {
