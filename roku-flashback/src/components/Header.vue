@@ -1,21 +1,21 @@
 <template>
-<div class="container fixed-top" id="header">
-  <b-navbar style="max-width:1800px !important; margin:auto;" toggleable="lg">
-    <b-navbar-brand href="#">
-      <show-at breakpoint="mediumAndAbove">
-        <img src="@/assets/img/logo/logo_full.svg" alt="Flasback Logo">
-      </show-at>
-      <hide-at breakpoint="mediumAndAbove">
-        <img src="@/assets/img/logo/logo_icon.svg" alt="Flasback Logo">
-      </hide-at>
-    </b-navbar-brand>
+  <div class="container fixed-top" id="header">
+    <b-navbar style="max-width:1800px !important; margin:auto;" toggleable="lg">
+      <b-navbar-brand href="#">
+        <show-at breakpoint="mediumAndAbove">
+          <img src="@/assets/img/logo/logo_full.svg" alt="Flasback Logo" />
+        </show-at>
+        <hide-at breakpoint="mediumAndAbove">
+          <img src="@/assets/img/logo/logo_icon.svg" alt="Flasback Logo" />
+        </hide-at>
+      </b-navbar-brand>
 
       <b-navbar-nav class="top-nav">
         <!-- hide home for mobile -->
         <show-at breakpoint="mediumAndAbove">
-        <b-nav-item>
-          <router-link to="/">Home</router-link>
-        </b-nav-item>
+          <b-nav-item>
+            <router-link to="/">Home</router-link>
+          </b-nav-item>
         </show-at>
         <b-nav-item>
           <router-link to="/music">Music</router-link>
@@ -30,201 +30,261 @@
 
       <!-- Right aligned nav items -->
       <show-at breakpoint="mediumAndAbove">
-        
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+            <b-form-input
+              size="sm"
+              class="mr-sm-2"
+              placeholder="Search"
+            ></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">
               <i class="fas fa-search"></i>
             </b-button>
           </b-nav-form>
 
           <b-nav-item id="up-pro" ref="up-pro">
-            <div @click="showit('showPro')" v-bind:class="{ active: showPro }" class="navicon">
-                <i class="fas fa-user"></i>
+            <div
+              @click="showit('showPro')"
+              v-bind:class="{ active: showPro }"
+              class="navicon"
+            >
+              <i class="fas fa-user"></i>
             </div>
             <transition name="slide-fade">
               <span v-if="showPro" id="upMenu" class="down-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"><i class="fas fa-user-cog"></i>User Preferences</router-link>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>User
+                      Preferences</router-link
+                    >
                   </li>
                   <li>
-                    <router-link to="/about"><i class="fas fa-user-cog"></i>Activity</router-link>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>Activity</router-link
+                    >
                   </li>
                   <li>
-                    <router-link to="/about"><i class="fas fa-users"></i>Switch Users</router-link>
+                    <router-link to="/about"
+                      ><i class="fas fa-users"></i>Switch Users</router-link
+                    >
                   </li>
                 </ul>
               </span>
             </transition>
-            <div v-if="showPro" @click="closeDrop('hidePro')" class="closefix" id="closeFix" style="top: 66px !important"></div>
+            <div
+              v-if="showPro"
+              @click="closeDrop('hidePro')"
+              class="closefix"
+              id="closeFix"
+              style="top: 66px !important"
+            ></div>
           </b-nav-item>
 
           <b-nav-item id="up-set" ref="up-set">
-            <div @click="showit('showSet')" v-bind:class="{ active: showSet }" class="navicon">
+            <div
+              @click="showit('showSet')"
+              v-bind:class="{ active: showSet }"
+              class="navicon"
+            >
               <i class="fas fa-sliders-h"></i>
             </div>
             <transition name="slide-fade">
               <span v-if="showSet" id="upMenu" class="down-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settings</router-link>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>Account
+                      Settings</router-link
+                    >
                   </li>
                   <li>
-                    <router-link to="/about"><i class="fas fa-users"></i>Sign Out</router-link>
+                    <router-link to="/about"
+                      ><i class="fas fa-users"></i>Sign Out</router-link
+                    >
                   </li>
                 </ul>
               </span>
             </transition>
-            <div v-if="showSet" @click="closeDrop('hideSet')" class="closefix" id="closeFix" style="top: 66px !important"></div>
+            <div
+              v-if="showSet"
+              @click="closeDrop('hideSet')"
+              class="closefix"
+              id="closeFix"
+              style="top: 66px !important"
+            ></div>
           </b-nav-item>
-
         </b-navbar-nav>
       </show-at>
-  </b-navbar>
+    </b-navbar>
 
-  <!-- BOTTOM MOBILE NAV --->
-  <hide-at breakpoint="mediumAndAbove">
-    <div class="nav-bottom">
-      <b-navbar-nav d-flex flex-row m-auto>
-        
-        <b-nav-item>
-          <router-link to="/">
-            <i class="fas fa-home"></i>
-          </router-link>
-        </b-nav-item>
+    <!-- BOTTOM MOBILE NAV --->
+    <hide-at breakpoint="mediumAndAbove">
+      <div class="nav-bottom">
+        <b-navbar-nav d-flex flex-row m-auto>
+          <b-nav-item>
+            <router-link to="/">
+              <i class="fas fa-home"></i>
+            </router-link>
+          </b-nav-item>
 
-        <b-nav-item id="up-ser" ref="up-ser">
-          <div @click="showit('showSer')" v-bind:class="{ active: showSer }">
+          <b-nav-item id="up-ser" ref="up-ser">
+            <div @click="showit('showSer')" v-bind:class="{ active: showSer }">
               <i class="fas fa-search"></i>
-          </div>
-          <transition name="slide-fade">
-            <span v-if="showSer" id="upMenu" class="up-search">
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-1 col-8" placeholder="Search"></b-form-input>
-              <b-button size="sm" class="col-2 ml-2" type="submit">
-                <i class="fas fa-search"></i>
-              </b-button>
-            </b-nav-form>
-            </span>
-          </transition>
-          <div v-if="showSer" @click="closeDrop('hideSer')" class="closefix" id="closeFix"></div>
-        </b-nav-item>
+            </div>
+            <transition name="slide-fade">
+              <span v-if="showSer" id="upMenu" class="up-search">
+                <b-nav-form>
+                  <b-form-input
+                    size="sm"
+                    class="mr-sm-1 col-8"
+                    placeholder="Search"
+                  ></b-form-input>
+                  <b-button size="sm" class="col-2 ml-2" type="submit">
+                    <i class="fas fa-search"></i>
+                  </b-button>
+                </b-nav-form>
+              </span>
+            </transition>
+            <div
+              v-if="showSer"
+              @click="closeDrop('hideSer')"
+              class="closefix"
+              id="closeFix"
+            ></div>
+          </b-nav-item>
 
-        <b-nav-item id="up-pro" ref="up-pro">
-          <div @click="showit('showPro')" v-bind:class="{ active: showPro }">
+          <b-nav-item id="up-pro" ref="up-pro">
+            <div @click="showit('showPro')" v-bind:class="{ active: showPro }">
               <i class="fas fa-user"></i>
-          </div>
-          <transition name="slide-fade">
-            <span v-if="showPro" id="upMenu" class="up-menu">
-              <ul>
-                <li>
-                  <router-link to="/about"><i class="fas fa-user-cog"></i>User Preferences</router-link>
-                </li>
-                <li>
-                  <router-link to="/about"><i class="fas fa-user-cog"></i>Activity</router-link>
-                </li>
-                <li>
-                  <router-link to="/about"><i class="fas fa-users"></i>Switch Users</router-link>
-                </li>
-              </ul>
-            </span>
-          </transition>
-          <div v-if="showPro" @click="closeDrop('hidePro')" class="closefix" id="closeFix"></div>
-        </b-nav-item>
+            </div>
+            <transition name="slide-fade">
+              <span v-if="showPro" id="upMenu" class="up-menu">
+                <ul>
+                  <li>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>User
+                      Preferences</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>Activity</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/about"
+                      ><i class="fas fa-users"></i>Switch Users</router-link
+                    >
+                  </li>
+                </ul>
+              </span>
+            </transition>
+            <div
+              v-if="showPro"
+              @click="closeDrop('hidePro')"
+              class="closefix"
+              id="closeFix"
+            ></div>
+          </b-nav-item>
 
-        <b-nav-item id="up-set" ref="up-set">
-          <div @click="showit('showSet')" v-bind:class="{ active: showSet }">
+          <b-nav-item id="up-set" ref="up-set">
+            <div @click="showit('showSet')" v-bind:class="{ active: showSet }">
               <i class="fas fa-sliders-h"></i>
-          </div>
-          <transition name="slide-fade">
-            <span v-if="showSet" id="upMenu" class="up-menu">
-              <ul>
-                <li>
-                  <router-link to="/about"><i class="fas fa-user-cog"></i>Account Settings</router-link>
-                </li>
-                <li>
-                  <router-link to="/about"><i class="fas fa-users"></i>Log Out</router-link>
-                </li>
-              </ul>
-            </span>
-          </transition>
-          <div v-if="showSet" @click="closeDrop('hideSet')" class="closefix" id="closeFix"></div>
-        </b-nav-item>
-
-      </b-navbar-nav>
-    </div>
-  </hide-at>
-
-</div>
+            </div>
+            <transition name="slide-fade">
+              <span v-if="showSet" id="upMenu" class="up-menu">
+                <ul>
+                  <li>
+                    <router-link to="/about"
+                      ><i class="fas fa-user-cog"></i>Account
+                      Settings</router-link
+                    >
+                  </li>
+                  <li>
+                    <router-link to="/about"
+                      ><i class="fas fa-users"></i>Log Out</router-link
+                    >
+                  </li>
+                </ul>
+              </span>
+            </transition>
+            <div
+              v-if="showSet"
+              @click="closeDrop('hideSet')"
+              class="closefix"
+              id="closeFix"
+            ></div>
+          </b-nav-item>
+        </b-navbar-nav>
+      </div>
+    </hide-at>
+  </div>
 </template>
 
 <script>
-import {showAt, hideAt} from 'vue-breakpoints';
+import { showAt, hideAt } from "vue-breakpoints";
 
 export default {
   name: "Header",
   components: { hideAt, showAt },
-  data: function () {
+  data: function() {
     return {
       showPro: false,
       showSet: false,
       showSer: false
-    }
+    };
   },
   methods: {
-    showit: function (thisMenu) {
-      let newMenu = thisMenu
-      if (newMenu === "showPro"){
-        if (this.$data.showPro === true){
+    showit: function(thisMenu) {
+      let newMenu = thisMenu;
+      if (newMenu === "showPro") {
+        if (this.$data.showPro === true) {
           this.$data.showPro = false;
-        }else{
+        } else {
           this.$data.showSet = false;
           this.$data.showSer = false;
           this.$data.showPro = true;
-        } 
+        }
       }
-      if (newMenu === "showSer"){
-        if (this.$data.showSer === true){
+      if (newMenu === "showSer") {
+        if (this.$data.showSer === true) {
           this.$data.showSer = false;
-        }else{
+        } else {
           this.$data.showSet = false;
           this.$data.showPro = false;
           this.$data.showSer = true;
-        } 
+        }
       }
-      if (newMenu === "showSet"){
-        if (this.$data.showSet === true){
+      if (newMenu === "showSet") {
+        if (this.$data.showSet === true) {
           this.$data.showSet = false;
-        }else{
+        } else {
           this.$data.showSer = false;
           this.$data.showPro = false;
           this.$data.showSet = true;
-        } 
-      }   
+        }
+      }
     },
-    closeDrop: function (thisClose){
+    closeDrop: function(thisClose) {
       let closeThis = thisClose;
-      if (closeThis === "hideSer"){
+      if (closeThis === "hideSer") {
         this.$data.showSer = false;
       }
-      if (closeThis === "hidePro"){
+      if (closeThis === "hidePro") {
         this.$data.showPro = false;
       }
-      if (closeThis === "hideSet"){
+      if (closeThis === "hideSet") {
         this.$data.showSet = false;
       }
     }
   }
-}
-
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-
-#header{
+#header {
   align-items: center !important;
   width: 100% !important;
   padding: 0 !important;
@@ -232,20 +292,20 @@ export default {
   margin: 0 !important;
   max-width: none !important;
 }
-img{
+img {
   height: 40px;
 }
-ul{
+ul {
   display: flex !important;
   flex-direction: row !important;
 }
-.top-nav li{
+.top-nav li {
   padding: 0 10px !important;
 }
 .navicon {
   padding: 0 10px;
 }
-.nav-bottom{
+.nav-bottom {
   display: block;
   flex-direction: row;
   width: 100%;
@@ -256,64 +316,65 @@ ul{
   z-index: 997;
   justify-content: center;
 }
-.nav-bottom ul{
+.nav-bottom ul {
   width: 100% !important;
   align-items: center;
   justify-content: space-evenly;
 }
-a *{
+a * {
   color: white;
 }
-a.router-link-exact-active, .router-link-exact-active * {
+a.router-link-exact-active,
+.router-link-exact-active * {
   color: rgb(0, 153, 255) !important;
   transform: scale(1.2);
-  translate: .5s;
+  translate: 0.5s;
 }
-.active *{
+.active * {
   color: rgb(0, 153, 255) !important;
   transform: scale(1.25);
-  translate: .5s;
+  translate: 0.5s;
 }
-.up-search{
+.up-search {
   display: block;
   position: absolute;
   bottom: 50px;
-  height: 30Vh;
+  height: 30vh;
   left: 0;
-  width: 100vW !important;
+  width: 100vw !important;
   margin: auto !important;
   padding: 10px;
   color: aqua;
   background-color: black;
   z-index: 995;
 }
-.up-menu{
+.up-menu {
   display: block;
   position: absolute;
   bottom: 50px;
   left: 35%;
-  width: 65vW !important;
+  width: 65vw !important;
   margin: auto !important;
   height: auto !important;
   color: aqua;
   background-color: black;
   border-top-left-radius: 8px;
   z-index: 998;
-  ul{
+  ul {
     flex-direction: column !important;
     list-style: none;
     padding: 15px 0 !important;
     align-items: start;
-    li{
+    li {
       padding: 15px;
       font-size: 18px;
-      a{
+      a {
         padding-left: 10px;
       }
     }
   }
 }
-.down-menu{
+.down-menu {
   display: block;
   position: absolute;
   top: 66px;
@@ -325,41 +386,40 @@ a.router-link-exact-active, .router-link-exact-active * {
   background-color: black;
   border-bottom-left-radius: 8px;
   z-index: 999;
-  ul{
+  ul {
     flex-direction: column !important;
     list-style: none;
     padding: 15px 0 !important;
     align-items: start;
-    li{
+    li {
       padding: 15px;
       font-size: 14px;
-      a{
+      a {
         padding-left: 10px;
       }
     }
   }
 }
-.closefix{
+.closefix {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vW !important;
-  height: calc(100vH - 50px) !important;
+  width: 100vw !important;
+  height: calc(100vh - 50px) !important;
   z-index: 800;
-  background-color: rgba($color: #ff70d4, $alpha: .4);
+  background-color: rgba($color: #ff70d4, $alpha: 0.4);
 }
 
 .slide-fade-enter-active {
-  transition: all .4s ease;
+  transition: all 0.4s ease;
 }
 .slide-fade-leave-active {
-  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
   background-color: grey;
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   transform: translateY(10px);
   opacity: 0;
 }
-
 </style>
-

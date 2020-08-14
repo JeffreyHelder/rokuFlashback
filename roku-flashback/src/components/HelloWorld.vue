@@ -1,16 +1,34 @@
 <template>
   <div class="hello">
     <h1 style="color:white;">{{ msg }}</h1>
-    <div class="alert alert-success alert-dismissible fade show col-6 m-auto" role="alert" style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(139, 255, 7, 0.4); border:1.5px solid rgb(139, 255, 7);">
+    <div
+      class="alert alert-success alert-dismissible fade show col-6 m-auto"
+      role="alert"
+      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(139, 255, 7, 0.4); border:1.5px solid rgb(139, 255, 7);"
+    >
       Now With With Bootstrap!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="alert alert-success alert-dismissible fade show col-11 col-lg-4 ml-auto mr-auto mt-3" role="alert" style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(255,198,0, 0.5); border:1.5px solid #ffc600; color:#000;">
+    <div
+      class="alert alert-success alert-dismissible fade show col-11 col-lg-4 ml-auto mr-auto mt-3"
+      role="alert"
+      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(255,198,0, 0.5); border:1.5px solid #ffc600; color:#000;"
+    >
       Soon to be made awesome by: <br />
       <b>Jeffrey Helder | Just Some Guy</b>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -118,14 +136,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-.hello{
+.hello {
   width: 100%;
   height: 100%;
   padding: 100px 0;
   background-color: rgb(63, 63, 63);
   @media screen and (max-width: 743px) {
-    height: calc(100vH - 116px);
+    height: calc(100vh - 116px);
   }
 }
 h3 {
