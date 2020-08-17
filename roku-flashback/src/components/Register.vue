@@ -4,7 +4,7 @@
       <div class="title">
         <h3>Register</h3>
       </div>
-      <b-form @submit="onSubmit" v-if="show">
+      <b-form v-if="show">
         <b-collapse visible id="name-section">
           <b-form-group
             id="name-input"
@@ -163,9 +163,9 @@
           <b-container class="d-flex p-0 justify-content-start">
             <b-button
               id="confirmNext"
-              type="submit"
               variant="primary"
               v-b-toggle="['reg', 'result-section']"
+              @click="register"
               >Confirm</b-button
             >
             <!-- when submit and checking => v-b-toggle spinner --->
@@ -237,6 +237,7 @@
 </template>
 
 <script>
+import AuthenticationService from "@/services/AuthenticationService";
 export default {
   name: "Register",
   data() {
@@ -283,9 +284,17 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
+    async register() {
+      const response = await AuthenticationService.register({
+        fname: this.$data.form.name.fname,
+        lname: this.$data.form.name.lname,
+        email: this.$data.form.email.email,
+        confemail: this.$data.form.email.confemail,
+        password: this.$data.form.password.pass,
+        confpassword: this.$data.form.password.confpass
+      });
       alert(JSON.stringify(this.form));
+      console.log(response);
     },
     reload(evt) {
       evt.preventDefault(evt);
