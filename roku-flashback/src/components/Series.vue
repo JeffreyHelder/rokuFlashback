@@ -17,14 +17,16 @@ export default {
 h1 {
   text-align: center;
 }
-.landing{
+.landing {
   width: 100%;
-  height: calc(100vH - 66px);
+  height: calc(100vh - 66px);
   padding: 100px 0;
   background-color: rgb(63, 63, 63);
   @media screen and (max-width: 743px) {
-    height: calc(100vH - 116px);
+    height: calc(100vh - 116px);
   }
-  h1{color: beige;}
+  h1 {
+    color: beige;
+  }
 }
 </style>
