@@ -9,9 +9,9 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/status', (req, res) => {
+app.post('/register', (req, res) => {
   res.send({
-    message: 'back end server'
+    message: `${req.body.email}, ${req.body.confemail}, ${req.body.password}, ${req.body.confpassword}, ${req.body.fname}, ${req.body.lname}`
   })
 })
 
