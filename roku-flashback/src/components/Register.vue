@@ -4,7 +4,7 @@
       <div class="title">
         <h3>Register</h3>
       </div>
-      <b-form v-if="show">
+      <b-form>
         <b-collapse visible id="name-section">
           <b-form-group
             id="name-input"
@@ -189,49 +189,37 @@
     </b-collapse>
 
     <b-collapse id="result-section">
-      <b-collapse visible id="spinner" class="spinner">
+      <div ref="spinner" id="spinner" class="spinner">
         <p>
           Working..
         </p>
         <i style="color:cyan;" class="fas fa-spinner"></i>
         <p>
-          <em v-b-toggle="['spinner', 'check']">one moment please</em>
-          <!-- <em>one moment please</em> -->
+          <em>one moment please</em>
         </p>
-      </b-collapse>
+      </div>
 
-      <b-collapse id="check" class="check">
+      <div ref="check" id="check" class="check hidden">
         <p>
           All is good!
         </p>
         <i style="color:greenyellow;" class="far fa-check-circle"></i>
         <p>
-          <em v-b-toggle="['check', 'error']">Log In Here</em>
-          <!-- <em><router-link to="/login">Log In Here</router-link></em> -->
+          <em><router-link to="/login">Log In Here</router-link></em>
         </p>
-      </b-collapse>
+      </div>
 
-      <b-collapse id="error" class="error">
+      <div ref="error" id="error" class="error hidden">
         <p>
           Oops! Something went wrong!
         </p>
-        <i style="color:red;" class="far fa-times-circle"></i>
+        <i style="color:orange;" class="far fa-times-circle"></i>
         <p>
-          <em v-b-toggle="['error', 'usererror']">Try Again?</em>
-          <!-- <em><a @click="reload" href="">Try Again?</a></em> -->
+          <em style="color:red;">{{ error }}</em>
+          <br />
+          <em><a @click="reload" href="">Try Again?</a></em>
         </p>
-      </b-collapse>
-
-      <b-collapse id="usererror" class="error">
-        <p>
-          Looks like that email is already in use!
-        </p>
-        <i style="color:orange;" class="far fa-question-circle"></i>
-        <p>
-          <em v-b-toggle="['usererror', 'spinner']">Try Again / Log In</em>
-          <!-- <em><a @click="reload" href="">Try Again</a> / <router-link to="/login">Log In</router-link></em> -->
-        </p>
-      </b-collapse>
+      </div>
     </b-collapse>
   </div>
 </template>
@@ -260,7 +248,8 @@ export default {
           message: "password needs to be 8+ characters"
         }
       },
-      show: true
+      show: true,
+      error: null
     };
   },
   watch: {
@@ -285,16 +274,26 @@ export default {
   },
   methods: {
     async register() {
-      const response = await AuthenticationService.register({
-        fname: this.$data.form.name.fname,
-        lname: this.$data.form.name.lname,
-        email: this.$data.form.email.email,
-        confemail: this.$data.form.email.confemail,
-        password: this.$data.form.password.pass,
-        confpassword: this.$data.form.password.confpass
-      });
-      alert(JSON.stringify(this.form));
-      console.log(response);
+      try {
+        await AuthenticationService.register({
+          fname: this.$data.form.name.fname,
+          lname: this.$data.form.name.lname,
+          email: this.$data.form.email.email,
+          password: this.$data.form.password.pass,
+          accPin: "1234"
+        });
+      } catch (error) {
+        this.$data.error = error.response.data.error;
+      }
+      if (this.$data.error) {
+        this.$refs.spinner.classList.add("hidden");
+        this.$refs.error.classList.remove("hidden");
+        console.log(this.$data.error);
+      } else {
+        this.$refs.spinner.classList.add("hidden");
+        this.$refs.check.classList.remove("hidden");
+        console.log("account created!");
+      }
     },
     reload(evt) {
       evt.preventDefault(evt);
@@ -307,8 +306,8 @@ export default {
       ) {
         if (this.$data.form.name.fname)
           this.$refs.nameNext.removeAttribute("disabled");
-        this.$refs.nameNext.classList.remove("disabled");
-        this.$data.form.name.message = "✓ click next to continue";
+          this.$refs.nameNext.classList.remove("disabled");
+          this.$data.form.name.message = "✓ click next to continue";
       } else {
         this.$refs.nameNext.setAttribute("disabled", "disabled");
         if (
@@ -378,6 +377,8 @@ export default {
 .not-collapsed > .when-closed {
   visibility: hidden;
 }
+
+.hidden{display: none !important;}
 
 .wrapper {
   display: flex;
