@@ -3,7 +3,7 @@
     <div class="title">
       <h3>Sign In</h3>
     </div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form ref="form" @reset="onReset" @submit="onSubmit" v-if="show">
       <b-form-group
         id="input-group-1"
         label="Email:"
@@ -35,8 +35,14 @@
         ></b-form-input>
       </b-form-group>
 
+      <p ref="error" class="hidden mb-0">
+        <em class="error">{{ this.$data.error }}</em>
+      </p>
+
       <b-container class="d-flex justify-content-around">
-        <b-button @click="login" variant="primary">Submit</b-button>
+        <b-button ref="submit" type="submit" variant="primary"
+          >Login</b-button
+        >
         <b-button type="reset" variant="dark">Reset</b-button>
       </b-container>
     </b-form>
@@ -56,15 +62,16 @@ export default {
     return {
       form: {
         email: "",
-        password: "",
-        message: ""
+        password: ""
       },
-      error: null,
+      error: "fill out form to continue",
       show: true
     };
   },
   methods: {
-    async login() {
+    async onSubmit(evt) {
+      evt.preventDefault();
+      this.$data.error = "";
       try {
         await AuthenticationService.login({
           email: this.$data.form.email,
@@ -72,19 +79,18 @@ export default {
         });
       } catch (error) {
         this.$data.error = error.response.data.error;
-      }
-      if (this.$data.error) {
+        this.$refs.error.classList.remove("hidden");
         console.log(this.$data.error);
-      } else {
-        console.log("Logged In!");
+        return false;
+      }
+      if (!this.$data.error) {
+        console.log("logged in");
       }
     },
     onReset(evt) {
       evt.preventDefault();
-      // Reset our form values
       this.form.email = "";
       this.form.password = "";
-      // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
@@ -98,6 +104,13 @@ export default {
 <style scoped lang="scss">
 * {
   color: white;
+}
+
+.hidden {
+  visibility: hidden;
+}
+.error {
+  color: orange !important;
 }
 
 .wrapper {
