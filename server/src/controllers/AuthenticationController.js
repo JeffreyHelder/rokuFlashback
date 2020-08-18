@@ -1,7 +1,14 @@
+const { Accounts } = require('../models')
+
 module.exports = {
-  register (req, res) {
-    res.send({
-      message: `${req.body.email}, ${req.body.confemail}, ${req.body.password}, ${req.body.confpassword}, ${req.body.fname}, ${req.body.lname}`
-    })
+  async register (req, res) {
+    try {
+      const account = await Accounts.create(req.body)
+      res.send(account.toJSON())
+    } catch (err) {
+      res.status(400).send({
+        error: 'Email Already In Use.'
+      })
+    }
   }
 }
