@@ -13,7 +13,7 @@ module.exports = {
         .error((errors) => new Error('Password must be 8-32 characters.')),
       fname: Joi.string()
         .pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,32}$"))
-        .error((errors) => new Error('Fist name Can not contain symbols or be longer than 32 characters')),
+        .error((errors) => new Error('First name Can not contain symbols or be longer than 32 characters')),
       lname: Joi.string()
         .pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,32}$"))
         .error((errors) => new Error('Last name can not contain symbols or be longer than 32 characters')),
@@ -25,9 +25,9 @@ module.exports = {
     const isValid = regSchema.validate(req.body, { abortEarly: false })
 
     if (isValid.error) {
-      res.status(400).send(
-        `${isValid.error}`
-      )
+      res.status(400).send({
+        error: `${isValid.error}`
+      })
     } else {
       next()
     }
