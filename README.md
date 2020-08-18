@@ -1,4 +1,4 @@
-# /serve
+# /server
  ```
  BackEnd
  ```
