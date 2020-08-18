@@ -194,7 +194,9 @@
             class="text-left"
           >
             <div class="form-control mb-2">
-              <p style="color:black;">Name: {{ form.name.fname }} {{ form.name.lname }}</p>
+              <p style="color:black;">
+                Name: {{ form.name.fname }} {{ form.name.lname }}
+              </p>
             </div>
             <div class="form-control mb-2">
               <p style="color:black;">Email: {{ form.email.email }}</p>

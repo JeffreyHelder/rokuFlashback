@@ -36,7 +36,7 @@
       </b-form-group>
 
       <b-container class="d-flex justify-content-around">
-        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button @click="login" variant="primary">Submit</b-button>
         <b-button type="reset" variant="dark">Reset</b-button>
       </b-container>
     </b-form>
@@ -49,21 +49,35 @@
 </template>
 
 <script>
+import AuthenticationService from "@/services/AuthenticationService";
 export default {
   name: "Login",
   data() {
     return {
       form: {
         email: "",
-        pass: ""
+        pass: "",
+        message: ""
       },
+      error: null,
       show: true
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
+    async login() {
+      try {
+        await AuthenticationService.login({
+          email: this.$data.form.email,
+          password: this.$data.form.pass
+        });
+      } catch (error) {
+        this.$data.error = error.response.data.error;
+      }
+      if (this.$data.error) {
+        console.log(this.$data.error);
+      } else {
+        console.log("Logged In!");
+      }
     },
     onReset(evt) {
       evt.preventDefault();
