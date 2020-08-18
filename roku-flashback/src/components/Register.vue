@@ -40,7 +40,6 @@
               variant="primary"
               >Next</b-button
             >
-            <!--Make button call function {check if form sections are filled out before v-b-toggle} --->
           </b-container>
         </b-collapse>
 
@@ -124,7 +123,7 @@
               disabled
               ref="passwordNext"
               id="passwordNext"
-              v-b-toggle="['password-section', 'confirm-section']"
+              v-b-toggle="['password-section', 'pin-section']"
               variant="primary"
               >Next</b-button
             >
@@ -137,25 +136,56 @@
           </b-container>
         </b-collapse>
 
-        <!-- <b-collapse id="pin-section">
+        <b-collapse id="pin-section">
+          <b-form-group
+            id="pin-input"
+            label="Account Security Pin :"
+            label-for="pin"
+            class="text-left"
+          >
+            <div class="input-wrapper">
+              <PincodeInput
+                name="pin"
+                v-model="form.pin.accPin"
+                placeholder="0"
+                secure="true"
+                previewDuration="150"
+              />
+            </div>
+
+            <label for="confpin" class="text-left ml-0 mt-3"
+              >Confirm Pin :</label
+            >
+            <div class="input-wrapper">
+              <PincodeInput
+                name="confpin"
+                v-model="form.pin.confaccPin"
+                placeholder="0"
+                secure="true"
+                previewDuration="150"
+              />
+            </div>
+          </b-form-group>
+
+          <p class="form-message">{{ form.pin.message }}</p>
 
           <b-container class="d-flex p-0 justify-content-start">
             <b-button
               disabled
-              ref="passwordNext"
-              id="passwordNext"
-              v-b-toggle="['password-section', 'confirm-section']"
+              ref="pinNext"
+              id="pinNext"
+              v-b-toggle="['pin-section', 'confirm-section']"
               variant="primary"
               >Next</b-button
             >
             <b-button
               class="ml-3"
-              v-b-toggle="['password-section', 'email-section']"
+              v-b-toggle="['password-section', 'pin-section']"
               variant="secondary"
               >Back</b-button
             >
           </b-container>
-        </b-collapse> -->
+        </b-collapse>
 
         <b-collapse id="confirm-section">
           <b-form-group
@@ -164,10 +194,7 @@
             class="text-left"
           >
             <div class="form-control mb-2">
-              <p style="color:black;">First Name: {{ form.name.fname }}</p>
-            </div>
-            <div class="form-control mb-2">
-              <p style="color:black;">Last Name: {{ form.name.lname }}</p>
+              <p style="color:black;">Name: {{ form.name.fname }} {{ form.name.lname }}</p>
             </div>
             <div class="form-control mb-2">
               <p style="color:black;">Email: {{ form.email.email }}</p>
@@ -175,6 +202,11 @@
             <div class="form-control mb-2">
               <p style="color:black;">
                 Password: {{ form.password.passCount }}
+              </p>
+            </div>
+            <div class="form-control mb-2">
+              <p style="color:black;">
+                Pin: ****
               </p>
             </div>
           </b-form-group>
@@ -187,7 +219,6 @@
               @click="register"
               >Confirm</b-button
             >
-            <!-- when submit and checking => v-b-toggle spinner --->
             <b-button
               class="ml-3"
               v-b-toggle="['password-section', 'confirm-section']"
@@ -234,9 +265,14 @@
         </p>
         <i style="color:orange;" class="far fa-times-circle"></i>
         <p>
-          <em style="color:red;">{{ error }}</em>
-          <br />
-          <em><a @click="reload" href="">Try Again?</a></em>
+          <em style="color:orange;">{{ error }}</em>
+        </p>
+        <p>
+          <em
+            ><a @click="reload" href="" style="color:greenyellow;"
+              >Try Again?</a
+            ></em
+          >
         </p>
       </div>
     </b-collapse>
@@ -244,9 +280,11 @@
 </template>
 
 <script>
+import PincodeInput from "vue-pincode-input";
 import AuthenticationService from "@/services/AuthenticationService";
 export default {
   name: "Register",
+  components: { PincodeInput },
   data() {
     return {
       form: {
@@ -265,6 +303,11 @@ export default {
           confpass: "",
           passCount: "",
           message: "password needs to be 8+ characters"
+        },
+        pin: {
+          accPin: "",
+          confaccPin: "",
+          message: "this pin is used to make account changes"
         }
       },
       show: true,
@@ -289,6 +332,12 @@ export default {
     },
     "form.password.confpass": function() {
       this.passCheck();
+    },
+    "form.pin.accPin": function() {
+      this.pinCheck();
+    },
+    "form.pin.confaccPin": function() {
+      this.pinCheck();
     }
   },
   methods: {
@@ -299,7 +348,7 @@ export default {
           lname: this.$data.form.name.lname,
           email: this.$data.form.email.email,
           password: this.$data.form.password.pass,
-          accPin: "1234"
+          accPin: this.$data.form.pin.accPin
         });
       } catch (error) {
         this.$data.error = error.response.data.error;
@@ -321,8 +370,11 @@ export default {
     nameCheck() {
       if (
         this.$data.form.name.fname.length >= 2 &&
-        this.$data.form.name.lname.length >= 2
-        //&& this.$data.form.name.fname Does not contain symbols && this.$data.form.name.lname Does not contain symbols
+        this.$data.form.name.lname.length >= 2 &&
+        !/[0-9$%&#@!^*`~,.<>;:"/|{}()=_+[\]]/.test(
+          this.$data.form.name.fname
+        ) &&
+        !/[0-9$%&#@!^*`~,.<>;:"/|{}()=_+[\]]/.test(this.$data.form.name.lname)
       ) {
         if (this.$data.form.name.fname) {
           this.$refs.nameNext.removeAttribute("disabled");
@@ -349,22 +401,33 @@ export default {
         ) {
           this.$data.form.name.message = "enter first and last to continue";
         }
-        // if (
-        //   this.$data.form.name.fname == **"SYMBOLS"** ||
-        //   this.$data.form.name.lname == **"SYMBOLS"**
-        // ) {
-        //   this.$data.form.name.message = "first and last name can not contain symbols";
-        // }
+        if (
+          /[0-9$%&#@!^*`~,.<>;:"/|{}()=_+[\]]/.test(
+            this.$data.form.name.fname
+          ) ||
+          /[0-9$%&#@!^*`~,.<>;:"/|{}()=_+[\]]/.test(this.$data.form.name.lname)
+        ) {
+          this.$data.form.name.message =
+            "Name can not contain symbols or numbers";
+        }
       }
     },
     emailCheck() {
-      if (this.$data.form.email.email == this.$data.form.email.confemail) {
-        this.$refs.emailNext.removeAttribute("disabled");
-        this.$refs.emailNext.classList.remove("disabled");
-        this.$data.form.email.message = "✓ click next to continue";
+      if (
+        this.$data.form.email.email.indexOf("@") >= 1 &&
+        this.$data.form.email.email.indexOf(".") >= 0
+      ) {
+        if (this.$data.form.email.email == this.$data.form.email.confemail) {
+          this.$refs.emailNext.removeAttribute("disabled");
+          this.$refs.emailNext.classList.remove("disabled");
+          this.$data.form.email.message = "✓ click next to continue";
+        } else {
+          this.$refs.emailNext.setAttribute("disabled", "disabled");
+          this.$data.form.email.message = "email must match to continue";
+        }
       } else {
         this.$refs.emailNext.setAttribute("disabled", "disabled");
-        this.$data.form.email.message = "email must match to continue";
+        this.$data.form.email.message = "must be a vaild email";
       }
     },
     passCheck() {
@@ -392,6 +455,16 @@ export default {
         this.$refs.passwordNext.setAttribute("disabled", "disabled");
         this.$data.form.password.message =
           "password must be 8-32 characters long";
+      }
+    },
+    pinCheck() {
+      if (this.$data.form.pin.accPin === this.$data.form.pin.confaccPin) {
+        this.$refs.pinNext.removeAttribute("disabled");
+        this.$refs.pinNext.classList.remove("disabled");
+        this.$data.form.pin.message = "✓ click next to continue";
+      } else {
+        this.$refs.pinNext.setAttribute("disabled", "disabled");
+        this.$data.form.pin.message = "pin must match to continue";
       }
     }
   }

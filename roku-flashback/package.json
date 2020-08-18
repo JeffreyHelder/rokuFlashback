@@ -21,6 +21,7 @@
     "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-breakpoints": "^1.1.0",
+    "vue-pincode-input": "^0.3.0",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
