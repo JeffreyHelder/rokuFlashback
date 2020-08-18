@@ -28,7 +28,7 @@
       >
         <b-form-input
           id="input-2"
-          v-model="form.pass"
+          v-model="form.password"
           type="password"
           required
           placeholder="password"
@@ -56,7 +56,7 @@ export default {
     return {
       form: {
         email: "",
-        pass: "",
+        password: "",
         message: ""
       },
       error: null,
@@ -68,7 +68,7 @@ export default {
       try {
         await AuthenticationService.login({
           email: this.$data.form.email,
-          password: this.$data.form.pass
+          password: this.$data.form.password
         });
       } catch (error) {
         this.$data.error = error.response.data.error;
@@ -83,7 +83,7 @@ export default {
       evt.preventDefault();
       // Reset our form values
       this.form.email = "";
-      this.form.pass = "";
+      this.form.password = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
