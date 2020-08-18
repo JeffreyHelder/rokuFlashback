@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) =>
-  sequelize.define('tbl_accounts', {
+  sequelize.define('Accounts', {
     email: {
       type: DataTypes.STRING(150),
       unique: true

@@ -16,7 +16,10 @@ module.exports = {
         .error((errors) => new Error('Fist name Can not contain symbols or be longer than 32 characters')),
       lname: Joi.string()
         .pattern(new RegExp("^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,32}$"))
-        .error((errors) => new Error('Last name Can not contain symbols or be longer than 32 characters'))
+        .error((errors) => new Error('Last name can not contain symbols or be longer than 32 characters')),
+      accPin: Joi.string()
+        .pattern(new RegExp('^[0-9]{4,4}$'))
+        .error((errors) => new Error('Pin Must be 4 characters AND only numbers'))
     })
 
     const isValid = regSchema.validate(req.body, { abortEarly: false })
