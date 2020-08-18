@@ -81,7 +81,6 @@
               variant="primary"
               >Next</b-button
             >
-            <!--Make button call function {check if form sections are match out before v-b-toggle} --->
             <b-button
               class="ml-3"
               v-b-toggle="['email-section', 'name-section']"
@@ -137,6 +136,26 @@
             >
           </b-container>
         </b-collapse>
+
+        <!-- <b-collapse id="pin-section">
+
+          <b-container class="d-flex p-0 justify-content-start">
+            <b-button
+              disabled
+              ref="passwordNext"
+              id="passwordNext"
+              v-b-toggle="['password-section', 'confirm-section']"
+              variant="primary"
+              >Next</b-button
+            >
+            <b-button
+              class="ml-3"
+              v-b-toggle="['password-section', 'email-section']"
+              variant="secondary"
+              >Back</b-button
+            >
+          </b-container>
+        </b-collapse> -->
 
         <b-collapse id="confirm-section">
           <b-form-group
@@ -303,11 +322,13 @@ export default {
       if (
         this.$data.form.name.fname.length >= 2 &&
         this.$data.form.name.lname.length >= 2
+        //&& this.$data.form.name.fname Does not contain symbols && this.$data.form.name.lname Does not contain symbols
       ) {
-        if (this.$data.form.name.fname)
+        if (this.$data.form.name.fname) {
           this.$refs.nameNext.removeAttribute("disabled");
           this.$refs.nameNext.classList.remove("disabled");
           this.$data.form.name.message = "✓ click next to continue";
+        }
       } else {
         this.$refs.nameNext.setAttribute("disabled", "disabled");
         if (
@@ -328,6 +349,12 @@ export default {
         ) {
           this.$data.form.name.message = "enter first and last to continue";
         }
+        // if (
+        //   this.$data.form.name.fname == **"SYMBOLS"** ||
+        //   this.$data.form.name.lname == **"SYMBOLS"**
+        // ) {
+        //   this.$data.form.name.message = "first and last name can not contain symbols";
+        // }
       }
     },
     emailCheck() {
@@ -341,7 +368,10 @@ export default {
       }
     },
     passCheck() {
-      if (this.$data.form.password.pass.length >= 8) {
+      if (
+        this.$data.form.password.pass.length >= 8 &&
+        this.$data.form.password.pass.length <= 32
+      ) {
         if (
           this.$data.form.password.pass === this.$data.form.password.confpass
         ) {
@@ -360,7 +390,8 @@ export default {
         }
       } else {
         this.$refs.passwordNext.setAttribute("disabled", "disabled");
-        this.$data.form.password.message = "password needs to be 8+ characters";
+        this.$data.form.password.message =
+          "password must be 8-32 characters long";
       }
     }
   }
@@ -377,9 +408,9 @@ export default {
 .not-collapsed > .when-closed {
   visibility: hidden;
 }
-
-.hidden{display: none !important;}
-
+.hidden {
+  display: none !important;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
