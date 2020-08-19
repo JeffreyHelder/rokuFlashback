@@ -98,10 +98,8 @@
                       Settings</router-link
                     >
                   </li>
-                  <li>
-                    <router-link to="/about"
-                      ><i class="fas fa-users"></i>Sign Out</router-link
-                    >
+                  <li @click="logOut()">
+                    <div to=""><i class="fas fa-users"></i>Sign Out</div>
                   </li>
                 </ul>
               </span>
@@ -277,6 +275,11 @@ export default {
       if (closeThis === "hideSet") {
         this.$data.showSet = false;
       }
+    },
+    logOut() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setAccount", null);
+      this.$router.push({ name: "Home" });
     }
   }
 };
