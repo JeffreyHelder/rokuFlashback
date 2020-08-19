@@ -40,9 +40,7 @@
       </p>
 
       <b-container class="d-flex justify-content-around">
-        <b-button ref="submit" type="submit" variant="primary"
-          >Login</b-button
-        >
+        <b-button ref="submit" type="submit" variant="primary">Login</b-button>
         <b-button type="reset" variant="dark">Reset</b-button>
       </b-container>
     </b-form>
@@ -73,10 +71,12 @@ export default {
       evt.preventDefault();
       this.$data.error = "";
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           email: this.$data.form.email,
           password: this.$data.form.password
         });
+        this.$store.dispatch("setToken", response.data.token);
+        this.$store.dispatch("setAccount", response.data.account);
       } catch (error) {
         this.$data.error = error.response.data.error;
         this.$refs.error.classList.remove("hidden");
