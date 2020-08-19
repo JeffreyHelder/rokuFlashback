@@ -10,7 +10,8 @@
           'url(https://as1.ftcdn.net/jpg/01/61/42/20/500_F_161422055_HKhz3lpcBZhH2ERvSUy8BNcDxtIoXvpe.jpg)'
       }"
     >
-      <Login />
+      <Login v-if="!$store.state.isAccountLoggedIn" />
+      <Users v-if="$store.state.isAccountLoggedIn" />
     </div>
   </div>
 </template>
@@ -18,11 +19,13 @@
 <script>
 // @ is an alias to /src
 import Login from "@/components/Login.vue";
+import Users from "@/components/Users.vue";
 
 export default {
   name: "LoginPage",
   components: {
-    Login
+    Login,
+    Users
   }
 };
 </script>

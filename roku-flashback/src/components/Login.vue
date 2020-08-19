@@ -85,7 +85,6 @@ export default {
       }
       if (!this.$data.error) {
         console.log("logged in");
-        this.$router.push({ name: "Home" });
       }
     },
     onReset(evt) {

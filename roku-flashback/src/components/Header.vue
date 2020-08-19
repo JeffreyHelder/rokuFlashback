@@ -99,9 +99,7 @@
                     >
                   </li>
                   <li @click="logOut()">
-                    <div to=""
-                      ><i class="fas fa-users"></i>Sign Out</div
-                    >
+                    <div to=""><i class="fas fa-users"></i>Sign Out</div>
                   </li>
                 </ul>
               </span>
