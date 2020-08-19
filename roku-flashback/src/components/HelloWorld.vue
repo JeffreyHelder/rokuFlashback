@@ -1,12 +1,11 @@
 <template>
   <div class="hello">
-    <h1 style="color:white;">{{ msg }}</h1>
     <div
       class="alert alert-success alert-dismissible fade show col-6 m-auto"
       role="alert"
-      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(139, 255, 7, 0.4); border:1.5px solid rgb(139, 255, 7);"
+      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(139, 255, 7, 0.8); border:1.5px solid rgb(139, 255, 7);"
     >
-      Now With With Bootstrap!
+      <h1 style="color:black;">This is Home now</h1>
       <button
         type="button"
         class="close"
@@ -17,12 +16,16 @@
       </button>
     </div>
     <div
-      class="alert alert-success alert-dismissible fade show col-11 col-lg-4 ml-auto mr-auto mt-3"
+      class="alert alert-success alert-dismissible fade show col-12 col-lg-5 ml-auto mr-auto mt-3"
       role="alert"
-      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(255,198,0, 0.5); border:1.5px solid #ffc600; color:#000;"
+      style="box-shadow: 0 0 5px 0px rgba(0,0,0,0.2); background-color:rgba(255,198,0, 0.9); border:1.5px solid #ffc600; color:#000;"
     >
-      Soon to be made awesome by: <br />
-      <b>Jeffrey Helder | Just Some Guy</b>
+      <h5 style="color:black;">
+        Soon to be made awesome by: <br />
+        <b style="font-size:24px; line-height:3; color:black;" class="pt-2"
+          >Jeffrey Helder | Just Some Guy</b
+        >
+      </h5>
       <button
         type="button"
         class="close"
@@ -33,93 +36,36 @@
       </button>
     </div>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
+      if this is still visable this app is still crap.
     </p>
-    <h3>Installed CLI Plugins</h3>
+    <h3>Some Fake Links</h3>
     <ul>
       <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
+        <a href="" target="_blank" rel="noopener">nothing</a>
       </li>
       <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
+        <a href="" target="_blank" rel="noopener">empty</a>
       </li>
       <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
+        <a href="" target="_blank" rel="noopener">blank</a>
       </li>
     </ul>
-    <h3>Essential Links</h3>
+    <h3>I'm Bored</h3>
     <ul>
       <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
+        <a href="" target="_blank" rel="noopener">bored</a>
       </li>
       <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
+        <a href="" target="_blank" rel="noopener">bored</a>
       </li>
       <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
+        <a href="" target="_blank" rel="noopener">bored</a>
       </li>
       <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
+        <a href="" target="_blank" rel="noopener">bored</a>
       </li>
       <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
+        <a href="" target="_blank" rel="noopener">bored</a>
       </li>
     </ul>
   </div>
@@ -137,8 +83,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .hello {
+  margin-top: 66px;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 66px);
   padding: 100px 0;
   background-color: rgb(63, 63, 63);
   @media screen and (max-width: 743px) {
