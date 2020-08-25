@@ -8,7 +8,10 @@ export default new Vuex.Store({
   state: {
     token: null,
     account: null,
-    isAccountLoggedIn: false
+    user: null,
+    isUserMax: null,
+    isAccountLoggedIn: false,
+    isUserLoggedIn: false
   },
   mutations: {
     setToken(state, token) {
@@ -21,6 +24,21 @@ export default new Vuex.Store({
     },
     setAccount(state, token) {
       state.account = token;
+    },
+    setUser(state, user) {
+      state.user = user;
+      if (user) {
+        state.isUserLoggedIn = true;
+      } else {
+        state.isUserLoggedIn = false;
+      }
+    },
+    setIsUserMax(state, userCount) {
+      if (userCount >= 5) {
+        state.isUserMax = true;
+      } else {
+        state.isUserMax = false;
+      }
     }
   },
   actions: {
@@ -29,6 +47,12 @@ export default new Vuex.Store({
     },
     setAccount({ commit }, account) {
       commit("setAccount", account);
+    },
+    setUser({ commit }, user) {
+      commit("setUser", user);
+    },
+    setIsUserMax({ commit }, userCount) {
+      commit("setIsUserMax", userCount);
     }
   }
 });

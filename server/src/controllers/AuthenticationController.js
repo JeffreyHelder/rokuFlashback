@@ -42,13 +42,13 @@ module.exports = {
       }
 
       const accountJson = account.toJSON()
-      res.send({
+      res.status(200).send({
         account: accountJson,
         token: jwtSignAccount(accountJson)
       })
     } catch (err) {
       res.status(500).send({
-        error: 'Hmmm, something went wrong on our side.'
+        error: 'Hmmm, something went wrong on our end.'
       })
     }
   }
