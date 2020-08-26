@@ -11,7 +11,6 @@
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
 import EditUserList from "@/components/EditUserList.vue";
-import UsersService from "@/services/UsersService.js";
 
 export default {
   name: "EditUsers",
@@ -21,22 +20,9 @@ export default {
   },
   data() {
     return {
-      users: null
+      users: null,
+      avatars: null
     };
-  },
-  async mounted() {
-    try {
-      this.users = (
-        await UsersService.index({
-          accId: this.$store.state.account.id
-        })
-      ).data;
-      const userCount = this.users.length;
-      this.$store.dispatch("setIsUserMax", userCount);
-    } catch (error) {
-      const err = error.response.data.error;
-      console.log(err);
-    }
   }
 };
 </script>

@@ -4,8 +4,8 @@ export default {
   index(credentials) {
     return Api().post("users", credentials);
   },
-  make(credentials) {
-    return Api().post("makeUser", credentials);
+  addUser(credentials) {
+    return Api().post("addUser", credentials);
   },
   delete(credentials) {
     return Api().post("deleteUser", credentials);

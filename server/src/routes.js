@@ -1,6 +1,7 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const UsersController = require('./controllers/UsersController')
+const AvatarController = require('./controllers/AvatarController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -13,8 +14,11 @@ module.exports = (app) => {
   app.post('/users',
     UsersController.index)
 
-  app.post('/makeUser',
-    UsersController.make)
+  app.post('/avatars',
+    AvatarController.index)
+
+  app.post('/addUser',
+    UsersController.addUser)
 
   app.post('/deleteUser',
     UsersController.delete)

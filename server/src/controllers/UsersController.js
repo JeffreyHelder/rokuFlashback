@@ -21,13 +21,14 @@ module.exports = {
       })
     }
   },
-  async make (req, res) {
+  async addUser (req, res) {
+    console.log(req.body)
     try {
-      const user = await Users.create(req.body)
-      res.send(user)
+      await Users.create(req.body)
+      res.status(200).send('User Created')
     } catch (err) {
       res.status(500).send({
-        error: 'Could not create user'
+        error: 'Something went wrong on our end'
       })
     }
   },

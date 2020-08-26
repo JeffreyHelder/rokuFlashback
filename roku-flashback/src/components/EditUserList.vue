@@ -48,18 +48,158 @@
         </b-button>
       </b-alert>
     </div>
-    <div
-      v-if="!$store.state.isUserMax"
-      class="userContainer wannaBe"
-      @click="addUser(user.id)"
-    >
-      <div class="imgWannaBe d-flex justify-content-center align-items-center">
+    <div v-if="!$store.state.isUserMax" class="addContainer wannaBe">
+      <div
+        class="imgWannaBe d-flex justify-content-center align-items-center"
+        v-b-toggle="['addUser']"
+        @click="getAvatars()"
+      >
         <p style="font-size:50px;padding:0;margin:0;">+</p>
       </div>
-      <div class="infoStack">
+      <div class="infoStack" v-b-toggle="['addUser']" @click="getAvatars()">
         <h3>Add User</h3>
         <p>Max of 5 users per account</p>
       </div>
+      <b-collapse id="addUser" class="col-12 p-0">
+        <b-form
+          class="d-felx flex-column justify-start align-left text-align-left"
+        >
+          <b-form-input
+            placeholder="Name"
+            id="uname-input"
+            class="mt-3 col-12"
+            v-model="form.name"
+            name="uname"
+            required
+          ></b-form-input>
+
+          <b-form-group
+            label="User Type"
+            class="mt-3 d-flex text-left justify-start"
+            required
+          >
+            <b-form-radio
+              class="d-flex justify-start"
+              v-model="form.type"
+              name="isMaster"
+              value="isMaster"
+              >Master</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.type"
+              name="normal"
+              value="isNormal"
+              >Normal</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.type"
+              name="isKid"
+              value="isKid"
+              >Kid</b-form-radio
+            >
+          </b-form-group>
+
+          <b-form-group
+            label="Viewing Permission"
+            class="mt-3 d-flex text-left justify-start"
+            required
+          >
+            <b-form-radio
+              class="d-flex justify-start"
+              v-model="form.viewPermission"
+              name="adult"
+              value="1"
+              >All Ratings</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.viewPermission"
+              name="young-adult"
+              value="2"
+              >G PG PG-13 R</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.viewPermission"
+              name="teen"
+              value="3"
+              >G PG PG-13</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.viewPermission"
+              name="young"
+              value="4"
+              >G PG</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.viewPermission"
+              name="child"
+              value="5"
+              >G</b-form-radio
+            >
+          </b-form-group>
+
+          <b-form-group
+            label="Lock User?"
+            class="mt-3 d-flex text-left justify-start"
+          >
+            <b-form-radio
+              class="d-flex justify-start"
+              v-model="form.isLocked"
+              name="isLocked"
+              value="true"
+              >Yes</b-form-radio
+            >
+            <b-form-radio
+              class="mt-3 d-flex justify-start"
+              v-model="form.isLocked"
+              name="isLocked"
+              value=""
+              v-b-toggle="['pinInput']"
+              >No</b-form-radio
+            >
+            <div v-if="this.$data.form.isLocked" class="input-wrapper mt-3">
+              <label for="pin" class="col-12 p-0">Pin code</label>
+              <PincodeInput
+                name="pin"
+                v-model="form.uPin"
+                placeholder="0"
+                secure="true"
+                previewDuration="200"
+              />
+            </div>
+          </b-form-group>
+
+          <b-form-group
+            label="Select Avatar"
+            class="mt-3 pl-0 col-10 d-flex text-left justify-start no-focus"
+          >
+            <div class="input-wrapper">
+              <div class="avatar-container m-auto m-md-0 p-0">
+                <div
+                  v-for="avatar in avatars"
+                  :key="avatar.id"
+                  :class="{ selectedAvatar: avatar.src == form.avatar }"
+                  @click="form.avatar = avatar.src"
+                  class="avatar-outter col-4 p-1"
+                >
+                  <img :src="avatar.src" :alt="avatar.src" />
+                </div>
+              </div>
+            </div>
+          </b-form-group>
+
+          <b-form-group class="mt-3 d-flex text-left justify-start">
+            <b-button @click="addUser">Add User</b-button>
+          </b-form-group>
+
+          <p class="error">{{ error }}</p>
+        </b-form>
+      </b-collapse>
     </div>
     <div v-if="$store.state.isUserMax" class="userContainer wannaBe">
       <div class="imgWannaBe d-flex justify-content-center align-items-center">
@@ -75,13 +215,28 @@
 </template>
 
 <script>
+import PincodeInput from "vue-pincode-input";
 import UsersService from "@/services/UsersService.js";
+import AvatarService from "@/services/AvatarService.js";
 export default {
   name: "EditUserList",
+  components: { PincodeInput },
   data() {
     return {
       users: null,
-      selected: undefined
+      selected: undefined,
+      avatars: null,
+      form: {
+        name: "",
+        avatar: "",
+        uPin: null,
+        viewPermission: "",
+        isLocked: null,
+        type: "",
+        isMaster: "",
+        isKid: ""
+      },
+      error: ""
     };
   },
   async mounted() {
@@ -99,6 +254,76 @@ export default {
     }
   },
   methods: {
+    async getAvatars() {
+      try {
+        this.avatars = (await AvatarService.index()).data;
+      } catch (error) {
+        const err = error.response.data.error;
+        console.log(err);
+      }
+    },
+    async addUser() {
+      if (
+        this.$data.form.name !== "" &&
+        this.$data.form.avatar !== "" &&
+        this.$data.form.viewPermission !== "" &&
+        this.$data.form.type !== ""
+      ) {
+        if (this.$data.form.type == "isMaster") {
+          this.$data.form.isMaster = 1;
+          this.$data.form.isKid = null;
+        } else if (this.$data.form.type == "isKid") {
+          this.$data.form.isMaster = null;
+          this.$data.form.isKid = 1;
+        } else {
+          this.$data.form.isMaster = null;
+          this.$data.form.isKid = null;
+        }
+        if (this.$data.form.isLocked == "") {
+          this.$data.form.uPin = null;
+          this.$data.form.isLocked = null;
+        }
+        try {
+          const addSuccess = (
+            await UsersService.addUser({
+              accId: this.$store.state.account.id,
+              isMaster: this.$data.form.isMaster,
+              isKid: this.$data.form.isKid,
+              isLocked: this.$data.form.isLocked,
+              name: this.$data.form.name,
+              avatar: this.$data.form.avatar,
+              uPin: this.$data.form.uPin
+            })
+          ).data;
+          if (addSuccess) {
+            this.$data.error = addSuccess.data;
+            this.$data.form.type = "";
+            this.$data.form.isMaster = "";
+            this.$data.form.isKid = "";
+            this.$data.form.isLocked = "";
+            this.$data.form.name = "";
+            this.$data.form.avatar = "";
+            this.$data.form.uPin = "";
+            try {
+              this.users = (
+                await UsersService.index({
+                  accId: this.$store.state.account.id
+                })
+              ).data;
+              const userCount = this.users.length;
+              this.$store.dispatch("setIsUserMax", userCount);
+            } catch (error) {
+              const err = error.response.data.error;
+              console.log(err);
+            }
+          }
+        } catch (error) {
+          this.$data.error = error.response.data.error;
+        }
+      } else {
+        this.$data.error = "Please Enter all required feilds";
+      }
+    },
     async deleteUser(userId) {
       try {
         const DeleteSuccess = (
@@ -229,6 +454,76 @@ h1 {
       &:hover {
         color: cyan;
         cursor: pointer;
+      }
+    }
+  }
+}
+.addContainer {
+  margin: 10px auto;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 450px;
+  border-bottom: thin solid rgb(54, 54, 54);
+  .imgWannaBe {
+    margin: 0;
+    margin-right: 20px;
+    padding: 3px 3px 0 3px;
+    width: 75px;
+    height: 75px;
+    box-shadow: 0px 0px 8px 2px rgba($color: #ffffff, $alpha: 0.3);
+  }
+  h3 {
+    font-size: 24px;
+    margin-top: 5px;
+    text-align: left;
+    font-weight: normal;
+  }
+  p {
+    margin-top: 5px;
+    text-align: left;
+    font-weight: normal;
+    i {
+      &:hover {
+        color: cyan;
+        cursor: pointer;
+      }
+    }
+  }
+  form {
+    [tabindex="-1"]:focus {
+      outline: 0 !important;
+    }
+    input.custom-control-input:focus,
+    .form-control:focus,
+    .no-focus:focus {
+      border-color: #ff80ff;
+      outline: none !important;
+      outline-width: 0 !important;
+      box-shadow: none;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+    }
+    .avatar-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 450px;
+      overflow-y: scroll;
+      border: thin solid white;
+      cursor: default !important;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        padding: 8px;
+        cursor: pointer !important;
+      }
+      .selectedAvatar {
+        background: rgba($color: yellow, $alpha: 0.1);
+        border: solid 2px yellow;
+        padding: 4px;
       }
     }
   }

@@ -89,7 +89,7 @@ export default {
 .users {
   position: relative;
   margin-top: 92px;
-  width: 100vW;
+  width: 100vw;
   height: 100%;
   min-height: calc(100vh - 92);
   padding: 50px 0;
