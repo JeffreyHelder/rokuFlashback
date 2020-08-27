@@ -15,28 +15,138 @@
         <div class="infoStack">
           <h3>{{ user.name }}</h3>
           <p>
-            <i @click="editUser(user.id)" class="pr-2">Edit</i>/<i
-              @click="showAlert(user.id)"
-              class="pl-2"
-              >Delete</i
-            >
+            <i @click="showEditUser(user.id)" class="pr-2"> Edit </i>/
+            <i @click="showAlert(user.id)" class="pl-2">
+              Delete
+            </i>
           </p>
         </div>
       </div>
+      <b-form
+        class="col-8 m-auto"
+        :ref="user.id"
+        :class="{ hidden: user.id !== editUserDrop }"
+      >
+        <b-form-input
+          :placeholder="user.name"
+          id="uname-input"
+          class="mt-3 col-12"
+          v-model="editForm.name"
+          name="uname"
+        ></b-form-input>
+
+        <b-form-group
+          label="Child User?"
+          class="mt-3 d-flex text-left justify-start"
+        >
+          <b-form-radio
+            class="mt-3 d-flex justify-start"
+            v-model="editForm.isKid"
+            name="isKid"
+            value="1"
+            >Yes</b-form-radio
+          >
+        </b-form-group>
+
+        <b-form-group
+          label="Viewing Permission"
+          class="mt-3 d-flex text-left justify-start"
+        >
+          <b-form-radio
+            class="d-flex justify-start"
+            v-model="editForm.viewPermission"
+            name="adult"
+            value="1"
+            >All Ratings</b-form-radio
+          >
+          <b-form-radio
+            class="mt-3 d-flex justify-start"
+            v-model="editForm.viewPermission"
+            name="young-adult"
+            value="2"
+            >G PG PG-13 R</b-form-radio
+          >
+          <b-form-radio
+            class="mt-3 d-flex justify-start"
+            v-model="editForm.viewPermission"
+            name="teen"
+            value="3"
+            >G PG PG-13</b-form-radio
+          >
+          <b-form-radio
+            class="mt-3 d-flex justify-start"
+            v-model="editForm.viewPermission"
+            name="young"
+            value="4"
+            >G PG</b-form-radio
+          >
+          <b-form-radio
+            class="mt-3 d-flex justify-start"
+            v-model="editForm.viewPermission"
+            name="child"
+            value="5"
+            >G</b-form-radio
+          >
+        </b-form-group>
+
+        <b-form-group
+          label="Lock User?"
+          class="mt-3 d-flex text-left justify-start"
+        >
+          <b-form-radio
+            class="d-flex justify-start"
+            v-model="editForm.isLocked"
+            name="isLocked"
+            value="1"
+            >Yes</b-form-radio
+          >
+        </b-form-group>
+
+        <b-form-group
+          label="Select Avatar"
+          class="mt-3 pl-0 col-10 d-flex text-left justify-start no-focus"
+        >
+          <div class="input-wrapper">
+            <div class="avatar-container m-auto m-md-0 p-0">
+              <div
+                v-for="avatar in avatars"
+                :key="avatar.id"
+                :class="{ selectedAvatar: avatar.src == editForm.avatar }"
+                @click="editForm.avatar = avatar.src"
+                class="avatar-outter col-4 p-1"
+              >
+                <img :src="avatar.src" :alt="avatar.src" />
+              </div>
+            </div>
+          </div>
+        </b-form-group>
+
+        <b-form-group class="mt-3 d-flex text-left justify-start">
+          <b-button variant="primary" @click="editUser(user)"
+            >Confirm Changes</b-button
+          >
+          <b-button class="ml-3" @click="editUserDrop = null"
+            >Cancel Changes</b-button
+          >
+        </b-form-group>
+
+        <p class="error">{{ error }}</p>
+      </b-form>
       <b-alert
         :ref="user.id"
         variant="danger"
-        show
         fade
+        show
         class="popUpAlert"
         :class="{ hidden: user.id !== selected }"
       >
         <h4 class="alert-heading" style="font-weight:bolder;">Warning!</h4>
-        <p>
-          You are about to <b>permanently delete</b> the user {{ user.name }}!
-        </p>
         <hr />
-        <p class="mb-0">
+        <p>
+          <i>Permanently deleting</i><br />
+          <b>{{ user.name }}</b
+          >.
+          <br />
           This can not be undone.<br />Do you wish to continue?
         </p>
         <hr />
@@ -44,23 +154,22 @@
           Yes, delete
         </b-button>
         <b-button @click="selected = undefined" variant="info" class="m-1">
-          Cancel
+          No, cancel
         </b-button>
       </b-alert>
     </div>
     <div v-if="!$store.state.isUserMax" class="addContainer wannaBe">
       <div
         class="imgWannaBe d-flex justify-content-center align-items-center"
-        v-b-toggle="['addUser']"
-        @click="getAvatars()"
+        @click="dropAddUser()"
       >
         <p style="font-size:50px;padding:0;margin:0;">+</p>
       </div>
-      <div class="infoStack" v-b-toggle="['addUser']" @click="getAvatars()">
+      <div class="infoStack" @click="dropAddUser()">
         <h3>Add User</h3>
         <p>Max of 5 users per account</p>
       </div>
-      <b-collapse id="addUser" class="col-12 p-0">
+      <b-collapse v-model="addUserDrop" class="col-12 p-0">
         <b-form
           class="d-felx flex-column justify-start align-left text-align-left"
         >
@@ -74,30 +183,16 @@
           ></b-form-input>
 
           <b-form-group
-            label="User Type"
+            label="Child User?"
             class="mt-3 d-flex text-left justify-start"
             required
           >
             <b-form-radio
-              class="d-flex justify-start"
-              v-model="form.type"
-              name="isMaster"
-              value="isMaster"
-              >Master</b-form-radio
-            >
-            <b-form-radio
               class="mt-3 d-flex justify-start"
-              v-model="form.type"
-              name="normal"
-              value="isNormal"
-              >Normal</b-form-radio
-            >
-            <b-form-radio
-              class="mt-3 d-flex justify-start"
-              v-model="form.type"
+              v-model="form.isKid"
               name="isKid"
-              value="isKid"
-              >Kid</b-form-radio
+              value="1"
+              >Yes</b-form-radio
             >
           </b-form-group>
 
@@ -151,27 +246,9 @@
               class="d-flex justify-start"
               v-model="form.isLocked"
               name="isLocked"
-              value="true"
+              value="1"
               >Yes</b-form-radio
             >
-            <b-form-radio
-              class="mt-3 d-flex justify-start"
-              v-model="form.isLocked"
-              name="isLocked"
-              value=""
-              v-b-toggle="['pinInput']"
-              >No</b-form-radio
-            >
-            <div v-if="this.$data.form.isLocked" class="input-wrapper mt-3">
-              <label for="pin" class="col-12 p-0">Pin code</label>
-              <PincodeInput
-                name="pin"
-                v-model="form.uPin"
-                placeholder="0"
-                secure="true"
-                previewDuration="200"
-              />
-            </div>
           </b-form-group>
 
           <b-form-group
@@ -194,7 +271,10 @@
           </b-form-group>
 
           <b-form-group class="mt-3 d-flex text-left justify-start">
-            <b-button @click="addUser">Add User</b-button>
+            <b-button variant="primary" @click="addUser">Add User</b-button>
+            <b-button class="ml-3" @click="addUserDrop = !addUserDrop"
+              >Cancel</b-button
+            >
           </b-form-group>
 
           <p class="error">{{ error }}</p>
@@ -215,28 +295,32 @@
 </template>
 
 <script>
-import PincodeInput from "vue-pincode-input";
 import UsersService from "@/services/UsersService.js";
 import AvatarService from "@/services/AvatarService.js";
 export default {
   name: "EditUserList",
-  components: { PincodeInput },
   data() {
     return {
+      addUserDrop: false,
+      editUserDrop: false,
+      error: null,
       users: null,
       selected: undefined,
       avatars: null,
       form: {
-        name: "",
-        avatar: "",
-        uPin: null,
-        viewPermission: "",
+        name: null,
+        avatar: null,
+        viewPermission: null,
         isLocked: null,
-        type: "",
-        isMaster: "",
-        isKid: ""
+        isKid: null
       },
-      error: ""
+      editForm: {
+        name: null,
+        avatar: null,
+        viewPermission: null,
+        isLocked: null,
+        isKid: null
+      }
     };
   },
   async mounted() {
@@ -254,7 +338,8 @@ export default {
     }
   },
   methods: {
-    async getAvatars() {
+    async dropAddUser() {
+      this.$data.addUserDrop = !this.$data.addUserDrop;
       try {
         this.avatars = (await AvatarService.index()).data;
       } catch (error) {
@@ -266,44 +351,27 @@ export default {
       if (
         this.$data.form.name !== "" &&
         this.$data.form.avatar !== "" &&
-        this.$data.form.viewPermission !== "" &&
-        this.$data.form.type !== ""
+        this.$data.form.viewPermission !== ""
       ) {
-        if (this.$data.form.type == "isMaster") {
-          this.$data.form.isMaster = 1;
-          this.$data.form.isKid = null;
-        } else if (this.$data.form.type == "isKid") {
-          this.$data.form.isMaster = null;
-          this.$data.form.isKid = 1;
-        } else {
-          this.$data.form.isMaster = null;
-          this.$data.form.isKid = null;
-        }
-        if (this.$data.form.isLocked == "") {
-          this.$data.form.uPin = null;
-          this.$data.form.isLocked = null;
-        }
         try {
           const addSuccess = (
             await UsersService.addUser({
               accId: this.$store.state.account.id,
-              isMaster: this.$data.form.isMaster,
               isKid: this.$data.form.isKid,
               isLocked: this.$data.form.isLocked,
               name: this.$data.form.name,
               avatar: this.$data.form.avatar,
-              uPin: this.$data.form.uPin
+              viewPermission: this.$$data.form.viewPermission
             })
           ).data;
           if (addSuccess) {
+            this.$data.addUserDrop = false;
             this.$data.error = addSuccess.data;
-            this.$data.form.type = "";
-            this.$data.form.isMaster = "";
-            this.$data.form.isKid = "";
-            this.$data.form.isLocked = "";
-            this.$data.form.name = "";
-            this.$data.form.avatar = "";
-            this.$data.form.uPin = "";
+            this.$data.form.viewPermission = null;
+            this.$data.form.isKid = null;
+            this.$data.form.isLocked = null;
+            this.$data.form.name = null;
+            this.$data.form.avatar = null;
             try {
               this.users = (
                 await UsersService.index({
@@ -322,6 +390,59 @@ export default {
         }
       } else {
         this.$data.error = "Please Enter all required feilds";
+      }
+    },
+    async editUser(user) {
+      if (!this.$data.editForm.isKid) {
+        this.$data.editForm.isKid = user.isKid;
+      }
+      if (!this.$data.editForm.isLocked) {
+        this.$data.editForm.isLocked = user.isLocked;
+      }
+      if (!this.$data.editForm.name) {
+        this.$data.editForm.name = user.name;
+      }
+      if (!this.$data.editForm.avatar) {
+        this.$data.editForm.avatar = user.avatar;
+      }
+      if (!this.$data.editForm.avatar) {
+        this.$data.editForm.viewPermission = user.viewPermission;
+      }
+      try {
+        const editSuccess = (
+          await UsersService.editUser({
+            userId: user.id,
+            accId: this.$store.state.account.id,
+            isKid: this.$data.editForm.isKid,
+            isLocked: this.$data.editForm.isLocked,
+            name: this.$data.editForm.name,
+            avatar: this.$data.editForm.avatar,
+            viewPermission: this.$data.editForm.viewPermission
+          })
+        ).data;
+        if (editSuccess) {
+          this.$data.editUserDrop = false;
+          this.$data.error = editSuccess.data;
+          this.$data.editForm.viewPermission = null;
+          this.$data.editForm.isKid = null;
+          this.$data.editForm.isLocked = null;
+          this.$data.editForm.name = null;
+          this.$data.editForm.avatar = null;
+          try {
+            this.users = (
+              await UsersService.index({
+                accId: this.$store.state.account.id
+              })
+            ).data;
+            const userCount = this.users.length;
+            this.$store.dispatch("setIsUserMax", userCount);
+          } catch (error) {
+            const err = error.response.data.error;
+            console.log(err);
+          }
+        }
+      } catch (error) {
+        this.$data.error = error.response.data.error;
       }
     },
     async deleteUser(userId) {
@@ -352,6 +473,24 @@ export default {
     },
     showAlert(userId) {
       this.$data.selected = userId;
+    },
+    async showEditUser(userId) {
+      this.$data.editForm.name = null;
+      this.$data.editForm.avatar = null;
+      this.$data.editForm.viewPermission = null;
+      this.$data.editForm.isLocked = null;
+      this.$data.editForm.isKid = null;
+      if (userId == this.$data.editUserDrop) {
+        this.$data.editUserDrop = null;
+      } else {
+        this.$data.editUserDrop = userId;
+      }
+      try {
+        this.avatars = (await AvatarService.index()).data;
+      } catch (error) {
+        const err = error.response.data.error;
+        console.log(err);
+      }
     }
   }
 };
@@ -373,6 +512,10 @@ export default {
   b,
   h4 {
     color: black;
+  }
+  i {
+    font-weight: bold;
+    color: red;
   }
 }
 .popUp {
@@ -422,14 +565,19 @@ h1 {
   flex-wrap: wrap;
   width: 450px;
   border-bottom: thin solid rgb(54, 54, 54);
+  transition: 0.2s;
   * {
     transition: 0.2s;
   }
   &:hover {
     * {
-      text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.5);
+      text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
     }
-    transform: scale(1.02);
+    box-shadow: 0px 0px 8px 2px rgba(255, 255, 255, 0.3);
+    img,
+    .imgWannaBe {
+      box-shadow: none;
+    }
   }
   img,
   .imgWannaBe {
@@ -438,7 +586,7 @@ h1 {
     padding: 3px 3px 0 3px;
     width: 75px;
     height: 75px;
-    box-shadow: 0px 0px 8px 2px rgba($color: #ffffff, $alpha: 0.3);
+    box-shadow: 0px 0px 8px 2px rgba(255, 255, 255, 0.3);
   }
   h3 {
     font-size: 24px;
@@ -491,40 +639,27 @@ h1 {
       }
     }
   }
-  form {
-    [tabindex="-1"]:focus {
-      outline: 0 !important;
+}
+form {
+  .avatar-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 450px;
+    overflow-y: scroll;
+    border: thin solid white;
+    cursor: default !important;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      padding: 8px;
+      cursor: pointer !important;
     }
-    input.custom-control-input:focus,
-    .form-control:focus,
-    .no-focus:focus {
-      border-color: #ff80ff;
-      outline: none !important;
-      outline-width: 0 !important;
-      box-shadow: none;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-    }
-    .avatar-container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 100%;
-      height: 450px;
-      overflow-y: scroll;
-      border: thin solid white;
-      cursor: default !important;
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        padding: 8px;
-        cursor: pointer !important;
-      }
-      .selectedAvatar {
-        background: rgba($color: yellow, $alpha: 0.1);
-        border: solid 2px yellow;
-        padding: 4px;
-      }
+    .selectedAvatar {
+      background: rgba($color: yellow, $alpha: 0.1);
+      border: solid 2px yellow;
+      padding: 4px;
     }
   }
 }

@@ -32,10 +32,37 @@ module.exports = {
       })
     }
   },
+  async editUser (req, res) {
+    console.log(req.body.userId)
+    console.log(req.body.accId)
+    try {
+      const findUser = await Users.findOne({
+        where: {
+          id: req.body.userId,
+          accId: req.body.accId
+        }
+      })
+      if (findUser) {
+        await findUser.update({
+          isKid: req.body.isKid,
+          isLocked: req.body.isLocked,
+          name: req.body.name,
+          avatar: req.body.avatar,
+          viewPermission: req.body.viewPermission,
+          updatedAt: 'DEFAULT'
+        })
+      }
+      res.status(200).send('User Updated')
+    } catch (err) {
+      res.status(500).send({
+        error: 'Something went wrong while updating'
+      })
+    }
+  },
   async delete (req, res) {
     try {
       const { userId } = req.body
-      Users.destroy({
+      await Users.destroy({
         where: {
           id: userId
         }

@@ -7,6 +7,9 @@ export default {
   addUser(credentials) {
     return Api().post("addUser", credentials);
   },
+  editUser(credentials) {
+    return Api().post("editUser", credentials);
+  },
   delete(credentials) {
     return Api().post("deleteUser", credentials);
   }
