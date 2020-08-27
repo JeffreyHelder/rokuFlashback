@@ -33,8 +33,6 @@ module.exports = {
     }
   },
   async editUser (req, res) {
-    console.log(req.body.userId)
-    console.log(req.body.accId)
     try {
       const findUser = await Users.findOne({
         where: {

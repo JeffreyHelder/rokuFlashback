@@ -349,9 +349,9 @@ export default {
     },
     async addUser() {
       if (
-        this.$data.form.name !== "" &&
-        this.$data.form.avatar !== "" &&
-        this.$data.form.viewPermission !== ""
+        this.$data.form.name !== null &&
+        this.$data.form.avatar !== null &&
+        this.$data.form.viewPermission !== null
       ) {
         try {
           const addSuccess = (
@@ -361,7 +361,7 @@ export default {
               isLocked: this.$data.form.isLocked,
               name: this.$data.form.name,
               avatar: this.$data.form.avatar,
-              viewPermission: this.$$data.form.viewPermission
+              viewPermission: this.$data.form.viewPermission
             })
           ).data;
           if (addSuccess) {
