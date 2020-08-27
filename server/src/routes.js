@@ -20,6 +20,9 @@ module.exports = (app) => {
   app.post('/addUser',
     UsersController.addUser)
 
+  app.post('/editUser',
+    UsersController.editUser)
+
   app.post('/deleteUser',
     UsersController.delete)
 }
