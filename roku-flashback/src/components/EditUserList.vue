@@ -1,5 +1,6 @@
 <template>
   <div class="users">
+    <router-link to="/login">Back</router-link>
     <h1>Edit - Add - Remove</h1>
     <div
       v-for="user in users"
