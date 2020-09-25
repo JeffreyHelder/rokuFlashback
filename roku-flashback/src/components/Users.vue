@@ -74,8 +74,8 @@ export default {
   },
   methods: {
     userLogin(user) {
-      this.selectedUser = user;
-      this.$store.dispatch("setUser", this.selectedUser);
+      this.$store.dispatch("setUser", user);
+      this.$router.push("/#");
     },
     linkToEditUser() {
       this.$router.push("/editUsers");

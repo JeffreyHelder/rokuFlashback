@@ -1,5 +1,6 @@
 <template>
   <div class="users">
+    <router-link to="/login">Back</router-link>
     <h1>Edit - Add - Remove</h1>
     <div
       v-for="user in users"
@@ -349,9 +350,9 @@ export default {
     },
     async addUser() {
       if (
-        this.$data.form.name !== "" &&
-        this.$data.form.avatar !== "" &&
-        this.$data.form.viewPermission !== ""
+        this.$data.form.name !== null &&
+        this.$data.form.avatar !== null &&
+        this.$data.form.viewPermission !== null
       ) {
         try {
           const addSuccess = (
@@ -361,7 +362,7 @@ export default {
               isLocked: this.$data.form.isLocked,
               name: this.$data.form.name,
               avatar: this.$data.form.avatar,
-              viewPermission: this.$$data.form.viewPermission
+              viewPermission: this.$data.form.viewPermission
             })
           ).data;
           if (addSuccess) {
