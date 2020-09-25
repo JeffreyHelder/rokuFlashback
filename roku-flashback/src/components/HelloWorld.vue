@@ -38,6 +38,12 @@
     <p>
       if this is still visable this app is still crap.
     </p>
+    <h3>User Logged on: <b style="color:cyan;">{{ this.$store.state.user.name }}</b></h3>
+    <img 
+      :src="this.$store.state.user.avatar" 
+      :alt="this.$store.state.user.name"
+      style="width:25%;height:25%;"
+    >
     <h3>Some Fake Links</h3>
     <ul>
       <li>

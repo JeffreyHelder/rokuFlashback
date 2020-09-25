@@ -37,7 +37,7 @@
               class="mr-sm-2"
               placeholder="Search"
             ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">
+            <b-button size="sm" class="my-2 my-sm-0 mr-2" type="submit">
               <i class="fas fa-search"></i>
             </b-button>
           </b-nav-form>
@@ -48,7 +48,11 @@
               v-bind:class="{ active: showPro }"
               class="navicon"
             >
-              <i class="fas fa-user"></i>
+              <img
+              :src="this.$store.state.user.avatar"
+              :alt="this.$store.state.user.name"
+              style="max-width:75%;max-height:75%;padding:0;"
+            />
             </div>
             <transition name="slide-fade">
               <span v-if="showPro" id="upMenu" class="down-menu">
@@ -305,8 +309,23 @@ ul {
 .top-nav li {
   padding: 0 10px !important;
 }
+#up-set{
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
 .navicon {
-  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  transition: .15s;
+  &:hover{
+    box-shadow: 0px 2px 8px rgba(255, 255, 255, 0.5);
+  }
 }
 .nav-bottom {
   display: block;
