@@ -4,6 +4,9 @@ export default {
   index(credentials) {
     return Api().post("users", credentials);
   },
+  indexOne(credentials) {
+    return Api().post("findUser", credentials);
+  },
   addUser(credentials) {
     return Api().post("addUser", credentials);
   },
@@ -13,4 +16,4 @@ export default {
   delete(credentials) {
     return Api().post("deleteUser", credentials);
   }
-};
+}; 

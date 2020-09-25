@@ -49,27 +49,27 @@
               class="navicon"
             >
               <img
-              :src="this.$store.state.user.avatar"
-              :alt="this.$store.state.user.name"
-              style="max-width:75%;max-height:75%;padding:0;"
-            />
+                :src="this.$store.state.user.avatar"
+                :alt="this.$store.state.user.name"
+                style="max-width:75%;max-height:75%;padding:0;"
+              />
             </div>
             <transition name="slide-fade">
               <span v-if="showPro" id="upMenu" class="down-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/userSettings"
                       ><i class="fas fa-user-cog"></i>User
-                      Preferences</router-link
+                      Settings</router-link
                     >
                   </li>
                   <li>
                     <router-link to="/about"
-                      ><i class="fas fa-user-cog"></i>Activity</router-link
+                      ><i class="fas fa-history"></i>User History</router-link
                     >
                   </li>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/login"
                       ><i class="fas fa-users"></i>Switch Users</router-link
                     >
                   </li>
@@ -98,12 +98,13 @@
                 <ul>
                   <li>
                     <router-link to="/about"
-                      ><i class="fas fa-user-cog"></i>Account
-                      Settings</router-link
+                      ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
                   <li @click="logOut()">
-                    <div to=""><i class="fas fa-users"></i>Sign Out</div>
+                    <router-link to="/">
+                      <i class="fas fa-sign-out-alt"></i>Sign Out
+                    </router-link>
                   </li>
                 </ul>
               </span>
@@ -171,11 +172,11 @@
                   </li>
                   <li>
                     <router-link to="/about"
-                      ><i class="fas fa-user-cog"></i>Activity</router-link
+                      ><i class="fas fa-history"></i>User History</router-link
                     >
                   </li>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/login"
                       ><i class="fas fa-users"></i>Switch Users</router-link
                     >
                   </li>
@@ -199,14 +200,13 @@
                 <ul>
                   <li>
                     <router-link to="/about"
-                      ><i class="fas fa-user-cog"></i>Account
-                      Settings</router-link
+                      ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
-                  <li>
-                    <router-link to="/about"
-                      ><i class="fas fa-users"></i>Log Out</router-link
-                    >
+                  <li @click="logOut()">
+                    <router-link to="/">
+                      <i class="fas fa-sign-out-alt"></i>Sign Out
+                    </router-link>
                   </li>
                 </ul>
               </span>
@@ -309,7 +309,7 @@ ul {
 .top-nav li {
   padding: 0 10px !important;
 }
-#up-set{
+#up-set {
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -322,8 +322,8 @@ ul {
   height: 42px;
   border: 1.5px solid rgba(255, 255, 255, 0.3);
   border-radius: 5px;
-  transition: .15s;
-  &:hover{
+  transition: 0.15s;
+  &:hover {
     box-shadow: 0px 2px 8px rgba(255, 255, 255, 0.5);
   }
 }
@@ -378,7 +378,6 @@ a.router-link-exact-active,
   width: 65vw !important;
   margin: auto !important;
   height: auto !important;
-  color: aqua;
   background-color: black;
   border-top-left-radius: 8px;
   z-index: 998;
@@ -387,11 +386,15 @@ a.router-link-exact-active,
     list-style: none;
     padding: 15px 0 !important;
     align-items: start;
+    text-decoration: none;
     li {
       padding: 15px;
-      font-size: 18px;
+      font-size: 16px;
       a {
         padding-left: 10px;
+        svg{
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -416,8 +419,20 @@ a.router-link-exact-active,
     li {
       padding: 15px;
       font-size: 14px;
+      *{
+      transition: .2s;
+      }
+      &:hover{
+        *{
+          color: rgb(0, 153, 255);
+          text-decoration: none;
+        }
+      }
       a {
         padding-left: 10px;
+        svg{
+          margin-right: 10px;
+        }
       }
     }
   }

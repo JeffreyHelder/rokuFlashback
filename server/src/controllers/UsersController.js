@@ -21,6 +21,26 @@ module.exports = {
       })
     }
   },
+  async indexOne (req, res) {
+    try {
+      const { id } = req.body
+      const user = await Users.findOne({
+        where: {
+          id: id
+        }
+      })
+      if (!user) {
+        return res.status(403).send({
+          error: 'No user found matching this account'
+        })
+      }
+      res.send(user)
+    } catch (err) {
+      res.status(500).send({
+        error: 'Hmmm, something went wrong on our end.'
+      })
+    }
+  },
   async addUser (req, res) {
     console.log(req.body)
     try {

@@ -22,52 +22,37 @@ const routes = [
   {
     path: "/music",
     name: "Music",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Music.vue")
+    component: () => import("../views/Music.vue")
   },
   {
     path: "/series",
     name: "Series",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Series.vue")
+    component: () => import("../views/Series.vue")
   },
   {
     path: "/movies",
     name: "Movies",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Movies.vue")
+    component: () => import("../views/Movies.vue")
   },
   {
     path: "/login",
     name: "Login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue")
+    component: () => import("../views/Login.vue")
   },
   {
     path: "/register",
     name: "Register",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Register.vue")
+    component: () => import("../views/Register.vue")
   },
   {
     path: "/editUsers",
     name: "EditUsers",
     component: () => import("../views/EditUsers.vue")
+  },
+  {
+    path: "/userSettings",
+    name: "UserSettingsPage",
+    component: () => import("../views/UserSettings.vue")
   }
 ];
 
