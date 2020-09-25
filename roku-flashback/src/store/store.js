@@ -26,6 +26,7 @@ export default new Vuex.Store({
       state.account = token;
     },
     setUser(state, user) {
+      state.user = null;
       state.user = user;
       if (user) {
         state.isUserLoggedIn = true;

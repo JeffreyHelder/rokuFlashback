@@ -14,6 +14,9 @@ module.exports = (app) => {
   app.post('/users',
     UsersController.index)
 
+  app.post('/findUser',
+    UsersController.indexOne)
+
   app.post('/avatars',
     AvatarController.index)
 
