@@ -53,6 +53,11 @@ const routes = [
     path: "/userSettings",
     name: "UserSettingsPage",
     component: () => import("../views/UserSettings.vue")
+  },
+  {
+    path: "/userHistory",
+    name: "UserHistoryPage",
+    component: () => import("../views/UserHistory.vue")
   }
 ];
 

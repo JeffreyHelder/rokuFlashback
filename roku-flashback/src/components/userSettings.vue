@@ -146,6 +146,7 @@ export default {
         const err = error.response.data.error;
         console.log(err);
       }
+      this.$data.editForm.avatar = this.$store.state.user.avatar
       try {
         this.avatars = (await AvatarService.index()).data;
       } catch (error) {

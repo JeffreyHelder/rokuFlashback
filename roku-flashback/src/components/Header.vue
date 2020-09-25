@@ -51,7 +51,7 @@
               <img
                 :src="this.$store.state.user.avatar"
                 :alt="this.$store.state.user.name"
-                style="max-width:75%;max-height:75%;padding:0;"
+                style="max-width:80%;max-height:80%;padding:0;"
               />
             </div>
             <transition name="slide-fade">
@@ -64,7 +64,7 @@
                     >
                   </li>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/userHistory"
                       ><i class="fas fa-history"></i>User History</router-link
                     >
                   </li>
@@ -101,8 +101,8 @@
                       ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
-                  <li @click="logOut()">
-                    <router-link to="/">
+                  <li @click="logOut()" id="signout">
+                    <router-link to="">
                       <i class="fas fa-sign-out-alt"></i>Sign Out
                     </router-link>
                   </li>
@@ -165,13 +165,13 @@
               <span v-if="showPro" id="upMenu" class="up-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/userSettings"
                       ><i class="fas fa-user-cog"></i>User
                       Preferences</router-link
                     >
                   </li>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/userHistory"
                       ><i class="fas fa-history"></i>User History</router-link
                     >
                   </li>
@@ -203,8 +203,8 @@
                       ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
-                  <li @click="logOut()">
-                    <router-link to="/">
+                  <li @click="logOut()" id="signout">
+                    <router-link to="">
                       <i class="fas fa-sign-out-alt"></i>Sign Out
                     </router-link>
                   </li>
@@ -342,18 +342,25 @@ ul {
   width: 100% !important;
   align-items: center;
   justify-content: space-evenly;
+  *{
+    color: white !important;
+  }
 }
 a * {
   color: white;
+  &:hover{
+    text-decoration: none;
+    color: rgb(85, 185, 255);
+  }
 }
 a.router-link-exact-active,
 .router-link-exact-active * {
-  color: rgb(0, 153, 255) !important;
+  color: rgb(0, 153, 255);
   transform: scale(1.2);
   translate: 0.5s;
 }
 .active * {
-  color: rgb(0, 153, 255) !important;
+  color: rgb(0, 153, 255);
   transform: scale(1.25);
   translate: 0.5s;
 }
@@ -420,11 +427,12 @@ a.router-link-exact-active,
       padding: 15px;
       font-size: 14px;
       *{
-      transition: .2s;
+        color: white !important;
+        transition: .2s;
       }
       &:hover{
         *{
-          color: rgb(0, 153, 255);
+          color: rgb(85, 185, 255) !important;
           text-decoration: none;
         }
       }
@@ -444,7 +452,7 @@ a.router-link-exact-active,
   width: 100vw !important;
   height: calc(100vh - 50px) !important;
   z-index: 800;
-  background-color: rgba($color: #ff70d4, $alpha: 0.4);
+  background-color: rgba($color: #000000, $alpha: 0.4);
 }
 
 .slide-fade-enter-active {
