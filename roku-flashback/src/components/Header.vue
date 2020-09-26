@@ -59,8 +59,7 @@
                 <ul>
                   <li>
                     <router-link to="/userSettings"
-                      ><i class="fas fa-user-cog"></i>User
-                      Settings</router-link
+                      ><i class="fas fa-user-cog"></i>User Settings</router-link
                     >
                   </li>
                   <li>
@@ -97,7 +96,7 @@
               <span v-if="showSet" id="upMenu" class="down-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/accountSettings"
                       ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
@@ -199,7 +198,7 @@
               <span v-if="showSet" id="upMenu" class="up-menu">
                 <ul>
                   <li>
-                    <router-link to="/about"
+                    <router-link to="/accountSettings"
                       ><i class="fas fa-cog"></i>Account Settings</router-link
                     >
                   </li>
@@ -342,13 +341,13 @@ ul {
   width: 100% !important;
   align-items: center;
   justify-content: space-evenly;
-  *{
+  * {
     color: white !important;
   }
 }
 a * {
   color: white;
-  &:hover{
+  &:hover {
     text-decoration: none;
     color: rgb(85, 185, 255);
   }
@@ -399,7 +398,7 @@ a.router-link-exact-active,
       font-size: 16px;
       a {
         padding-left: 10px;
-        svg{
+        svg {
           margin-right: 10px;
         }
       }
@@ -426,19 +425,19 @@ a.router-link-exact-active,
     li {
       padding: 15px;
       font-size: 14px;
-      *{
+      * {
         color: white !important;
-        transition: .2s;
+        transition: 0.2s;
       }
-      &:hover{
-        *{
+      &:hover {
+        * {
           color: rgb(85, 185, 255) !important;
           text-decoration: none;
         }
       }
       a {
         padding-left: 10px;
-        svg{
+        svg {
           margin-right: 10px;
         }
       }

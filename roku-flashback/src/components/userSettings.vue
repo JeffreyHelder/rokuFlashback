@@ -1,13 +1,8 @@
 <template>
   <div class="userSettings">
-    <div
-      class="col-md-6 col-12 m-auto"
-    >
-    <h2>User Settings</h2>
-      <b-form
-        class="col-12 m-auto"
-        :ref="this.$store.state.user.id"
-      >
+    <div class="col-md-6 col-12 m-auto">
+      <h2>User Settings</h2>
+      <b-form class="col-12 m-auto" :ref="this.$store.state.user.id">
         <b-form-input
           :placeholder="this.$store.state.user.name"
           id="uname-input"
@@ -137,25 +132,26 @@ export default {
     };
   },
   async mounted() {
-      try {
-        this.$data.user = (await UsersService.indexOne({
+    try {
+      this.$data.user = (
+        await UsersService.indexOne({
           id: this.$store.state.user.id
         })
-        ).data;
-      } catch (error) {
-        const err = error.response.data.error;
-        console.log(err);
-      }
-      this.$data.editForm.avatar = this.$store.state.user.avatar
-      try {
-        this.avatars = (await AvatarService.index()).data;
-      } catch (error) {
-        const err = error.response.data.error;
-        console.log(err);
-      }
+      ).data;
+    } catch (error) {
+      const err = error.response.data.error;
+      console.log(err);
+    }
+    this.$data.editForm.avatar = this.$store.state.user.avatar;
+    try {
+      this.avatars = (await AvatarService.index()).data;
+    } catch (error) {
+      const err = error.response.data.error;
+      console.log(err);
+    }
   },
   methods: {
-  async editUser() {
+    async editUser() {
       if (!this.$data.editForm.isKid == "1") {
         this.$data.editForm.isKid = this.$data.user.isKid;
       }
@@ -184,7 +180,7 @@ export default {
           })
         ).data;
         if (editSuccess) {
-          alert("Update Successful!")
+          alert("Update Successful!");
           this.$data.editForm.viewPermission = null;
           this.$data.editForm.isKid = null;
           this.$data.editForm.isLocked = null;

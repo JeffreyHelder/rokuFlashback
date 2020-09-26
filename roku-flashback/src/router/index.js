@@ -58,6 +58,11 @@ const routes = [
     path: "/userHistory",
     name: "UserHistoryPage",
     component: () => import("../views/UserHistory.vue")
+  },
+  {
+    path: "/accountSettings",
+    name: "AccountSettingsPage",
+    component: () => import("../views/AccountSettings.vue")
   }
 ];
 

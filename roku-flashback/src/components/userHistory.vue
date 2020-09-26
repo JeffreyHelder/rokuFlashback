@@ -1,9 +1,7 @@
 <template>
   <div class="userHistroy">
-    <div
-      class="col-md-6 col-12 m-auto"
-    >
-    <h2>User History Temp</h2>
+    <div class="col-md-6 col-12 m-auto">
+      <h2>User History Temp</h2>
     </div>
   </div>
 </template>
