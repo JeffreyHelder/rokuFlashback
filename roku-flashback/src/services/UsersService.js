@@ -16,4 +16,4 @@ export default {
   delete(credentials) {
     return Api().post("deleteUser", credentials);
   }
-}; 
+};
